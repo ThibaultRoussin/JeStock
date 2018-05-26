@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Scannez le matériel :"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="italic" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <SurfaceView
+        android:id="@+id/cameraPreview"
+        android:layout_width="350dp"
+        android:layout_height="250dp" />
+
+    <EditText
+        android:id="@+id/edit_ref"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/bt_rechercher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rechercher"
+        android:background="#ca142d"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout>

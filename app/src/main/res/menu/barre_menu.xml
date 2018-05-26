@@ -1,0 +1,47 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+
+        android:icon="@drawable/logo"
+
+        android:title="Logo"
+
+        app:showAsAction="always"></item>
+
+    <item
+        android:id="@+id/action_affiche_listes"
+
+        android:icon="@drawable/ic_listes"
+
+        android:title="AfficheListes"
+
+        app:showAsAction="always"></item>
+
+    <item
+        android:icon="@drawable/ic_listes"
+
+        android:title="Consulter la liste: "
+
+        app:showAsAction="never"></item>
+
+
+    <item
+        android:id="@+id/action_notification"
+
+        android:icon="@drawable/ic_cloche"
+
+        android:title="Notification"
+
+        app:showAsAction="always"></item>
+
+    <item
+        android:id="@+id/action_deconnexion"
+
+        android:icon="@drawable/ic_deco"
+
+        android:title="Deconnexion"
+
+        app:showAsAction="always"></item>
+
+</menu>
