@@ -3,6 +3,7 @@ package fr.epf.jestock;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,11 +27,12 @@ public class ConnexionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connexion);
         ButterKnife.bind(this);
-        UserDAO BDD = new UserDAO(this);
-        MaterielDAO DD = new MaterielDAO(this);
-        BDD.create();
-        DD.create2();
-        DD.create3();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_connexion);
+        toolbar.setTitle("Connection");
+        setSupportActionBar(toolbar);
+
+        MenuActivity a = new MenuActivity();
     }
 
     @OnClick(R.id.connexion)

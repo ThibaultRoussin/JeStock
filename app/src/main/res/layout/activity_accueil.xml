@@ -8,6 +8,13 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_accueil"
+        android:minHeight="?attr/actionBarSize"
+        android:background="#ca142d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.Toolbar>
 
     <Space
         android:layout_width="match_parent"

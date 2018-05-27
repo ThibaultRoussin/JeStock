@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.Menu;
@@ -44,7 +45,10 @@ public class AccueilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
         ButterKnife.bind(this);
-        final Intent intent = new Intent(this, MenuActivity.class);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_accueil);
+        toolbar.setTitle("Scanner");
+        setSupportActionBar(toolbar);
 
         detector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.EAN_13).build();
         cameraSource = new CameraSource

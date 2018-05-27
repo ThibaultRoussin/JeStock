@@ -3,6 +3,7 @@ package fr.epf.jestock;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
@@ -18,6 +19,10 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         ButterKnife.bind(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_liste);
+        toolbar.setTitle("Listes");
+        setSupportActionBar(toolbar);
 
         TabHost tabHost;
         TabHost host = (TabHost)findViewById(R.id.tab_host);

@@ -31,11 +31,11 @@ public class MaterielDAO {
         helper = new UserDataBaseOpenHelper(context);
     }
 
-    public void create2(){
+    public void create(){
 
         database = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(UserDataBaseOpenHelper.REFERENCE2,"xxx");
+        values.put(UserDataBaseOpenHelper.REFERENCE2,"9770317847001");
         values.put(UserDataBaseOpenHelper.NAME2,"Adaptateur");
         values.put(UserDataBaseOpenHelper.TOTAL_QUANTITY,"20");
         values.put(UserDataBaseOpenHelper.QUANTITY_BORROWED,"5");
@@ -44,39 +44,40 @@ public class MaterielDAO {
         values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER2,"5");
         database.insert(helper.TABLE_MATERIEL_LOANABLE, null, values);
 
-        database.close();
+        ContentValues values2 = new ContentValues();
+        values2.put(UserDataBaseOpenHelper.REFERENCE,"5901234123457");
+        values2.put(UserDataBaseOpenHelper.NAME,"Test");
+        values2.put(UserDataBaseOpenHelper.STOCK_QUANTITY,10);
+        values2.put(UserDataBaseOpenHelper.STOCK_QUANTITY_ADVISE,7);
+        values2.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER,0);
+        database.insert(helper.TABLE_MATERIEL_STOCK, null, values2);
 
+        ContentValues values3 = new ContentValues();
+        values3.put(UserDataBaseOpenHelper.MATERIEL_NAME,"Adapteur");
+        values3.put(UserDataBaseOpenHelper.MATERIEL_REFERENCE,"9770317847001");
+        values3.put(UserDataBaseOpenHelper.BORROWER_TYPE,"Eleve");
+        values3.put(UserDataBaseOpenHelper.BORROWER_FIRST_NAME,"Jean");
+        values3.put(UserDataBaseOpenHelper.BORROWER_NAME,"Dupont");
+        values3.put(UserDataBaseOpenHelper.BORROWER_EMAIL,"jean.dupont@epedu.fr");
+        values3.put(UserDataBaseOpenHelper.LOAN_DATE,"24/05/2018");
+        values3.put(UserDataBaseOpenHelper.RENDER_DATE,"25/05/2018");
+        database.insert(helper.TABLE_LOAN, null, values3);
+
+        database.close();
     }
 
-    public void create3(){
-
-        database = helper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(UserDataBaseOpenHelper.MATERIEL_NAME,"Ordinateur");
-        values.put(UserDataBaseOpenHelper.MATERIEL_REFERENCE,"yyy");
-        values.put(UserDataBaseOpenHelper.BORROWER_TYPE,"Eleve");
-        values.put(UserDataBaseOpenHelper.BORROWER_FIRST_NAME,"Jean");
-        values.put(UserDataBaseOpenHelper.BORROWER_NAME,"Dupont");
-        values.put(UserDataBaseOpenHelper.BORROWER_EMAIL,"jean.dupont@epedu.fr");
-        values.put(UserDataBaseOpenHelper.LOAN_DATE,"24/05/2018");
-        values.put(UserDataBaseOpenHelper.RENDER_DATE,"25/05/2018");
-        database.insert(helper.TABLE_LOAN, null, values);
-
-        database.close();
-
-    }
 
     public Intent rechercheBDD(String ref){
         Intent intent = new Intent(context, MenuActivity.class);
         int i = 0;
 
-        String selectQuery1 = "SELECT  * FROM " + helper.TABLE_MATERIEL_STOCK +" WHERE " + helper.REFERENCE + " LIKE " +ref;
-        SQLiteDatabase db1 = helper.getWritableDatabase();
-        Cursor cursor1 = db1.rawQuery(selectQuery1, null);
-
         String selectQuery2 = "SELECT  * FROM " + helper.TABLE_MATERIEL_LOANABLE +" WHERE " + helper.REFERENCE2 + " LIKE " +ref;
         SQLiteDatabase db2 = helper.getWritableDatabase();
         Cursor cursor2 = db2.rawQuery(selectQuery2, null);
+
+        String selectQuery1 = "SELECT  * FROM " + helper.TABLE_MATERIEL_STOCK +" WHERE " + helper.REFERENCE + " LIKE " +ref;
+        SQLiteDatabase db1 = helper.getWritableDatabase();
+        Cursor cursor1 = db1.rawQuery(selectQuery1, null);
 
         if (cursor1.moveToFirst()) {
             i = 1;
@@ -88,7 +89,7 @@ public class MaterielDAO {
         }
         if (cursor2.moveToFirst()) {
             i=i+2;
-            intent.putExtra(helper.REFERENCE2,cursor2.getString(0));
+            intent.putExtra(UserDataBaseOpenHelper.REFERENCE2,cursor2.getString(0));
             intent.putExtra(helper.NAME2,cursor2.getString(1));
             intent.putExtra(helper.TOTAL_QUANTITY,cursor2.getInt(2));
             intent.putExtra(helper.QUANTITY_BORROWED,cursor2.getInt(3));
@@ -181,40 +182,89 @@ public class MaterielDAO {
         return empruntsList;
     }
 
-    public void ajouterMateriel(Intent intent){
+    public void ajouterMateriel(Intent intent, int quantity){
 
         database = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(UserDataBaseOpenHelper.STOCK_QUANTITY,(intent.getIntExtra("QUANTITE_STOCK",0)+1));
+        int quantityStockFuture = intent.getIntExtra("QUANTITE_STOCK",0) + quantity;
+        int quantityOrderFuture = intent.getIntExtra("QUANTITE_A_COMMANDER",0) - quantity;
 
-        if (intent.getIntExtra("QUANTITE_A_COMMANDER",0) > 0){
-            values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER,(intent.getIntExtra("QUANTITE_A_COMMANDER",0)-1));
+        values.put(UserDataBaseOpenHelper.STOCK_QUANTITY,quantityStockFuture);
+
+        if (quantityOrderFuture > 0){
+            values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER,quantityOrderFuture);
         }
         else values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER,0);
 
         database.update(helper.TABLE_MATERIEL_STOCK, values, helper.REFERENCE + " LIKE " + intent.getStringExtra("REFERENCE"), null);
     }
 
-    public void retirerMateriel(Intent intent) {
+    public boolean retirerMateriel(Intent intent, int quantity) {
 
         database = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        if (intent.getIntExtra("QUANTITE_STOCK",0) != 0){
+        int quantityStockFuture = intent.getIntExtra("QUANTITE_STOCK",0) - quantity;
 
-            values.put(UserDataBaseOpenHelper.STOCK_QUANTITY,(intent.getIntExtra("QUANTITE_STOCK",0)-1));
+        if (quantityStockFuture >= 0){
 
-            if ((intent.getIntExtra("QUANTITE_STOCK",0)-1) < (intent.getIntExtra("QUANTITE_STOCK_CONSEILLEE",0))){
+            values.put(UserDataBaseOpenHelper.STOCK_QUANTITY,quantityStockFuture);
+
+            if (quantityStockFuture < (intent.getIntExtra("QUANTITE_STOCK_CONSEILLEE",0))){
                 values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER,(intent.getIntExtra("QUANTITE_STOCK_CONSEILLEE",0)
-                        - (intent.getIntExtra("QUANTITE_STOCK",0)-1)));
+                        - quantityStockFuture));
             }
             else  values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER,0);
 
             database.update(helper.TABLE_MATERIEL_STOCK, values, helper.REFERENCE + " LIKE " + intent.getStringExtra("REFERENCE"), null);
+            return true;
 
         }else{
+            return false;
+        }
+    }
 
+    public void ajouterMaterielEmpruntable(Intent intent, int quantity){
+
+        database = helper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        int quantityStockFuture = intent.getIntExtra(helper.TOTAL_QUANTITY,0) + quantity;
+        int quantityOrderFuture = intent.getIntExtra(helper.QUANTITY_TO_ORDER2,0) - quantity;
+
+        values.put(helper.TOTAL_QUANTITY,quantityStockFuture);
+
+        if (quantityOrderFuture > 0){
+            values.put(helper.QUANTITY_TO_ORDER2,quantityOrderFuture);
+        }
+        else values.put(helper.QUANTITY_TO_ORDER2,0);
+
+        database.update(helper.TABLE_MATERIEL_LOANABLE, values, helper.REFERENCE2 + " LIKE " + intent.getStringExtra(helper.REFERENCE2), null);
+    }
+
+    public boolean retirerMaterielEmpruntable(Intent intent, int quantity) {
+
+        database = helper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        int quantityStockFuture = intent.getIntExtra(helper.TOTAL_QUANTITY,0) - quantity;
+
+        if (quantityStockFuture >= 0){
+
+            values.put(helper.TOTAL_QUANTITY,quantityStockFuture);
+
+            if (quantityStockFuture < (intent.getIntExtra(helper.TOTAL_QUANTITY_ADVISE,0))){
+                values.put(helper.QUANTITY_TO_ORDER2,(intent.getIntExtra(helper.TOTAL_QUANTITY_ADVISE,0)
+                        - quantityStockFuture));
+            }
+            else  values.put(helper.QUANTITY_TO_ORDER2,0);
+
+            database.update(helper.TABLE_MATERIEL_LOANABLE, values, helper.REFERENCE2 + " LIKE " + intent.getStringExtra(helper.REFERENCE2), null);
+            return true;
+
+        }else{
+            return false;
         }
     }
 }

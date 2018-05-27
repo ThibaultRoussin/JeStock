@@ -38,12 +38,12 @@ public class UserDAO {
         database.insert(helper.TABLE_USERS, null, values);
 
         ContentValues values2 = new ContentValues();
-        values2.put(UserDataBaseOpenHelper.REFERENCE,"5901234123457");
-        values2.put(UserDataBaseOpenHelper.NAME,"Test");
-        values2.put(UserDataBaseOpenHelper.STOCK_QUANTITY,10);
-        values2.put(UserDataBaseOpenHelper.STOCK_QUANTITY_ADVISE,7);
-        values2.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER,0);
-        database.insert(helper.TABLE_MATERIEL_STOCK, null, values2);
+        values2.put(UserDataBaseOpenHelper.LOGIN,"T");
+        values2.put(UserDataBaseOpenHelper.PASSWORD,"R");
+        values2.put(UserDataBaseOpenHelper.EMAIL,"ta@gmail.com");
+        values2.put(UserDataBaseOpenHelper.RIGHT,"admin");
+        database.insert(helper.TABLE_USERS, null, values2);
+
         database.close();
     }
 

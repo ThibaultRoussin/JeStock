@@ -6,9 +6,13 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Space
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_liste"
+        android:minHeight="?attr/actionBarSize"
+        android:background="#ca142d"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.Toolbar>
 
     <TabHost
         android:id="@+id/tab_host"
