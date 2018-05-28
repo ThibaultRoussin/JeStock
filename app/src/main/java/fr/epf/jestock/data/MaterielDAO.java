@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.epf.jestock.MenuActivity;
+import fr.epf.jestock.RefInconnueActivity;
 import fr.epf.jestock.model.Emprunts;
 import fr.epf.jestock.model.MaterielEmpruntable;
 import fr.epf.jestock.model.MaterielEnStock;
@@ -97,7 +98,11 @@ public class MaterielDAO {
             intent.putExtra(helper.TOTAL_QUANTITY_ADVISE,cursor2.getInt(5));
             intent.putExtra(helper.QUANTITY_TO_ORDER2,cursor2.getInt(6));
         }
-        if (i==0) intent.putExtra(TYPE,"Aucun");
+        if (i==0){
+            Intent intent2 = new Intent(context, RefInconnueActivity.class);
+            intent2.putExtra(TYPE,"Aucun");
+            return intent2;
+        }
         if (i==1) intent.putExtra(TYPE,"Stock");
         if (i==2) intent.putExtra(TYPE,"Empruntable");
         if (i==3) intent.putExtra(TYPE,"Double");

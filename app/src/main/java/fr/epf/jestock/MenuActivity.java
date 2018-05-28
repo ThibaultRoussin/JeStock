@@ -22,6 +22,7 @@ import butterknife.OnTouch;
 import fr.epf.jestock.data.MaterielDAO;
 import fr.epf.jestock.data.UserDAO;
 import fr.epf.jestock.data.UserDataBaseOpenHelper;
+import fr.epf.jestock.model.Compte;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -124,6 +125,41 @@ public class MenuActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch(item.getItemId()){
+            case R.id.action_affiche_listes:
+                Intent intent = new Intent(this, ListActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.action_notification:
+                Intent intent1 = new Intent(this, ListDeficitActivity.class);
+                startActivity(intent1);
+                return true;
+
+            case R.id.action_deconnexion :
+                Intent intent2 = new Intent(this, ConnexionActivity.class);
+                startActivity(intent2);
+                return true;
+
+            case R.id.action_sceaux:
+                Compte.setCampus("Sceaux");
+                return true;
+
+            case R.id.action_montpellier:
+                Compte.setCampus("montpellier");
+                return true;
+
+            case R.id.action_troyes:
+                Compte.setCampus("troyes");
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnClick(R.id.bt_ajout_materiel_stock)
     public void ajouterMateriel(){
         MaterielDAO BDD = new MaterielDAO(this);
@@ -196,10 +232,14 @@ public class MenuActivity extends AppCompatActivity {
     @OnClick(R.id.bt_emprunt_materiel)
     public void emprunterMateriel(){
 
+        Intent intent = new Intent(this,ScannerNFCActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.bt_rendu_materiel)
     public void rendreMateriel(){
 
+        Intent intent = new Intent(this,ScannerNFCActivity.class);
+        startActivity(intent);
     }
 }

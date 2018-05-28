@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.epf.jestock.data.MaterielDAO;
 import fr.epf.jestock.data.UserDAO;
+import fr.epf.jestock.model.Compte;
 import fr.epf.jestock.model.User;
 
 public class ConnexionActivity extends AppCompatActivity {
@@ -44,6 +45,8 @@ public class ConnexionActivity extends AppCompatActivity {
 
         for (User user : userList) {
             if (id.getText().toString().equals(user.getLogin()) && mdp.getText().toString().equals(user.getPassword())){
+                Compte.setCampus("Sceaux");
+                Compte.setDroit(user.getDroit());
                 startActivity(intent);
             }
         }

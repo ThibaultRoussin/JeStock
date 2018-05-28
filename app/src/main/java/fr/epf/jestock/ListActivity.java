@@ -10,6 +10,7 @@ import android.widget.TabHost;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fr.epf.jestock.model.Compte;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -72,6 +73,18 @@ public class ListActivity extends AppCompatActivity {
             case R.id.action_deconnexion :
                 Intent intent2 = new Intent(this, ConnexionActivity.class);
                 startActivity(intent2);
+                return true;
+
+            case R.id.action_sceaux:
+                Compte.setCampus("Sceaux");
+                return true;
+
+            case R.id.action_montpellier:
+                Compte.setCampus("montpellier");
+                return true;
+
+            case R.id.action_troyes:
+                Compte.setCampus("troyes");
                 return true;
         }
 

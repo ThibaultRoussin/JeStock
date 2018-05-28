@@ -3,42 +3,38 @@ package fr.epf.jestock;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
+import android.widget.Button;
+import android.widget.TextView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import fr.epf.jestock.model.Compte;
 
-public class ListDeficitActivity extends AppCompatActivity {
+public class RefInconnueActivity extends AppCompatActivity {
+
+    @BindView(R.id.textCompte)
+    TextView textCompte;
+    @BindView(R.id.bt_retry)
+    Button retry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listdeficit);
+        setContentView(R.layout.activity_ref_inconnue);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_deficit);
-        toolbar.setTitle("Déficit");
-        setSupportActionBar(toolbar);
+        if (Compte.getDroit().equals("Admin")){
+            textCompte.setText("Voulez vous ajouter une nouvelle référence aux stocks?");
+        }
+        if (Compte.getDroit().equals("SI")){
+            textCompte.setText("Si vous souhaitez ajouter cette nouvelle référence aux stocks, connectez vous en tant que Administrateur.");
 
-        TabHost tabHost;
-        TabHost host = (TabHost) findViewById(R.id.tab_host);
-        host.setup();
+        }
+        Intent intent = getIntent();
 
-        //Tab 1
-        TabHost.TabSpec spec = host.newTabSpec("Matériel en stock");
-        spec.setContent(R.id.tab1);
-        spec.setIndicator("Matériel en stock");
-        host.addTab(spec);
 
-        //Tab 2
-        spec = host.newTabSpec("Matériel empruntable");
-        spec.setContent(R.id.tab2);
-        spec.setIndicator("Matériel empruntable");
-        host.addTab(spec);
     }
 
     @Override
@@ -80,11 +76,5 @@ public class ListDeficitActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @OnClick(R.id.bt_retour_accueil2)
-    public void retourAccueil(){
-        Intent intent = new Intent(this,AccueilActivity.class);
-        startActivity(intent);
     }
 }

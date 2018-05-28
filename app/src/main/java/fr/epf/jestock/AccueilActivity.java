@@ -27,6 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.epf.jestock.data.MaterielDAO;
+import fr.epf.jestock.model.Compte;
 import fr.epf.jestock.model.MaterielEmpruntable;
 import fr.epf.jestock.model.MaterielEnStock;
 
@@ -132,6 +133,18 @@ public class AccueilActivity extends AppCompatActivity {
             case R.id.action_deconnexion :
                 Intent intent2 = new Intent(this, ConnexionActivity.class);
                 startActivity(intent2);
+                return true;
+
+            case R.id.action_sceaux:
+                Compte.setCampus("Sceaux");
+                return true;
+
+            case R.id.action_montpellier:
+                Compte.setCampus("montpellier");
+                return true;
+
+            case R.id.action_troyes:
+                Compte.setCampus("troyes");
                 return true;
         }
 

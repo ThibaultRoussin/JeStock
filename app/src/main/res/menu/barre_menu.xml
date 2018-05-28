@@ -2,14 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-
-        android:icon="@drawable/logo"
-
-        android:title="Logo"
-
-        app:showAsAction="always"></item>
-
-    <item
         android:id="@+id/action_affiche_listes"
 
         android:icon="@drawable/ic_listes"
@@ -19,11 +11,31 @@
         app:showAsAction="always"></item>
 
     <item
+        android:id="@+id/action_sceaux"
+
         android:icon="@drawable/ic_listes"
 
-        android:title="Consulter la liste: "
+        android:title="Sceaux"
 
-        app:showAsAction="never"></item>
+        app:showAsAction="ifRoom|withText"></item>
+
+    <item
+        android:id="@+id/action_troyes"
+
+        android:icon="@drawable/ic_listes"
+
+        android:title="Troyes"
+
+        app:showAsAction="ifRoom|withText"></item>
+
+    <item
+        android:id="@+id/action_montpellier"
+
+        android:icon="@drawable/ic_listes"
+
+        android:title="Montpellier"
+
+        app:showAsAction="ifRoom|withText"></item>
 
 
     <item
