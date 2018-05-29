@@ -52,7 +52,7 @@ public class MenuActivity extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
-        toast.setGravity(Gravity.TOP|Gravity.LEFT, 125, 150);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
         toast.show();
 
         recupData = getIntent();
@@ -85,15 +85,6 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
-    @OnTouch(R.id.retirer10)
-    public boolean retirer10(){
-        int quantiteActuelle = Integer.parseInt(quantite.getText().toString());
-        int quantiteFuture = quantiteActuelle - 10;
-        if (quantiteFuture > 1) quantite.setText(String.valueOf(quantiteFuture));
-        else quantite.setText("1");
-        return true;
-    }
-
     @OnTouch(R.id.retirer1)
     public boolean retirer1(){
         int quantiteActuelle = Integer.parseInt(quantite.getText().toString());
@@ -107,14 +98,6 @@ public class MenuActivity extends AppCompatActivity {
     public boolean ajouter1(){
         int quantiteActuelle = Integer.parseInt(quantite.getText().toString());
         int quantiteFuture = quantiteActuelle +1;
-        quantite.setText(String.valueOf(quantiteFuture));
-        return true;
-    }
-
-    @OnTouch(R.id.ajouter10)
-    public boolean ajouter10(){
-        int quantiteActuelle = Integer.parseInt(quantite.getText().toString());
-        int quantiteFuture = quantiteActuelle +10;
         quantite.setText(String.valueOf(quantiteFuture));
         return true;
     }
@@ -167,7 +150,7 @@ public class MenuActivity extends AppCompatActivity {
         BDD.ajouterMateriel(recupData, Integer.parseInt(quantite.getText().toString()));
 
         Toast toast = Toast.makeText(getApplicationContext(), "Matériel ajouté!", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP|Gravity.LEFT, 125, 150);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
         toast.show();
 
         retourScanner = new Intent(this,AccueilActivity.class);
@@ -180,7 +163,7 @@ public class MenuActivity extends AppCompatActivity {
         recupData = getIntent();
         if (BDD.retirerMateriel(recupData, Integer.parseInt(quantite.getText().toString()))) {
             Toast toast = Toast.makeText(getApplicationContext(), "Matériel retiré!", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP | Gravity.LEFT, 125, 150);
+            toast.setGravity(Gravity.TOP | Gravity.CENTER, 125, 150);
             toast.show();
 
             retourScanner = new Intent(this, AccueilActivity.class);
@@ -188,7 +171,7 @@ public class MenuActivity extends AppCompatActivity {
         }
         else {
             Toast toast = Toast.makeText(getApplicationContext(), "Pas assez de matériel en stock", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP | Gravity.LEFT, 125, 150);
+            toast.setGravity(Gravity.TOP | Gravity.CENTER, 125, 150);
             toast.show();
         }
     }
@@ -200,7 +183,7 @@ public class MenuActivity extends AppCompatActivity {
         BDD.ajouterMaterielEmpruntable(recupData, Integer.parseInt(quantite.getText().toString()));
 
         Toast toast = Toast.makeText(getApplicationContext(), "Matériel ajouté!", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP|Gravity.LEFT, 125, 150);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
         toast.show();
 
         retourScanner = new Intent(this,AccueilActivity.class);
@@ -215,7 +198,7 @@ public class MenuActivity extends AppCompatActivity {
 
         if(BDD.retirerMaterielEmpruntable(recupData, Integer.parseInt(quantite.getText().toString()))){
             Toast toast = Toast.makeText(getApplicationContext(), "Matériel retiré!", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.LEFT, 125, 150);
+            toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
             toast.show();
 
             retourScanner = new Intent(this,AccueilActivity.class);
@@ -223,7 +206,7 @@ public class MenuActivity extends AppCompatActivity {
         }
         else {
             Toast toast = Toast.makeText(getApplicationContext(), "Pas assez de matériel en stock", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.LEFT, 125, 150);
+            toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
             toast.show();
         }
 

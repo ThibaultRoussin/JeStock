@@ -3,6 +3,8 @@ package fr.epf.jestock;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import fr.epf.jestock.model.Compte;
 
 public class RefInconnueActivity extends AppCompatActivity {
@@ -19,23 +22,48 @@ public class RefInconnueActivity extends AppCompatActivity {
     @BindView(R.id.bt_retry)
     Button retry;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ref_inconnue);
         ButterKnife.bind(this);
 
-        if (Compte.getDroit().equals("Admin")){
+        if (Compte.getDroit().equals("admin")){
             textCompte.setText("Voulez vous ajouter une nouvelle référence aux stocks?");
         }
-        if (Compte.getDroit().equals("SI")){
+        if (Compte.getDroit().equals("si")){
             textCompte.setText("Si vous souhaitez ajouter cette nouvelle référence aux stocks, connectez vous en tant que Administrateur.");
-
+            retry.setText("SE CONNECTER EN TANT QU'ADMINISTRATEUR");
         }
-        Intent intent = getIntent();
 
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_refInconnue);
+        toolbar.setTitle("Inconnue");
+        setSupportActionBar(toolbar);
     }
+
+    @OnClick(R.id.bt_retry)
+    public void retry(){
+        finish();
+    }
+
+    @OnClick(R.id.bt_newRef)
+    public void newRef(){
+        if(Compte.getDroit().equals("SI")){
+            Intent intent2 = new Intent(this, ConnexionActivity.class);
+            startActivity(intent2);
+        }
+        else {
+            Intent intent = getIntent();
+            String ref = intent.getStringExtra("REFERENCE");
+            Log.d("REF INCONNUE", ref);
+            Intent intent2 = new Intent(this, NouvelleRefActivity.class);
+            intent2.putExtra("REFERENCE", ref);
+            startActivity(intent2);
+        }
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

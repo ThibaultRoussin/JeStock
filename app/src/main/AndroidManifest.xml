@@ -41,7 +41,8 @@
                 android:name="android.nfc.action.NDEF_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
         </activity>
-        <activity android:name=".RefInconnueActivity"></activity>
+        <activity android:name=".RefInconnueActivity" />
+        <activity android:name=".NouvelleRefActivity"></activity>
     </application>
 
 </manifest>

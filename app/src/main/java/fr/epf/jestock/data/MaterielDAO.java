@@ -43,7 +43,7 @@ public class MaterielDAO {
         values.put(UserDataBaseOpenHelper.QUANTITY_NOT_BORROWED,"15");
         values.put(UserDataBaseOpenHelper.TOTAL_QUANTITY_ADVISE,"25");
         values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER2,"5");
-        database.insert(helper.TABLE_MATERIEL_LOANABLE, null, values);
+        database.insert(UserDataBaseOpenHelper.TABLE_MATERIEL_LOANABLE, null, values);
 
         ContentValues values2 = new ContentValues();
         values2.put(UserDataBaseOpenHelper.REFERENCE,"5901234123457");
@@ -51,7 +51,7 @@ public class MaterielDAO {
         values2.put(UserDataBaseOpenHelper.STOCK_QUANTITY,10);
         values2.put(UserDataBaseOpenHelper.STOCK_QUANTITY_ADVISE,7);
         values2.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER,0);
-        database.insert(helper.TABLE_MATERIEL_STOCK, null, values2);
+        database.insert(UserDataBaseOpenHelper.TABLE_MATERIEL_STOCK, null, values2);
 
         ContentValues values3 = new ContentValues();
         values3.put(UserDataBaseOpenHelper.MATERIEL_NAME,"Adapteur");
@@ -62,7 +62,7 @@ public class MaterielDAO {
         values3.put(UserDataBaseOpenHelper.BORROWER_EMAIL,"jean.dupont@epedu.fr");
         values3.put(UserDataBaseOpenHelper.LOAN_DATE,"24/05/2018");
         values3.put(UserDataBaseOpenHelper.RENDER_DATE,"25/05/2018");
-        database.insert(helper.TABLE_LOAN, null, values3);
+        database.insert(UserDataBaseOpenHelper.TABLE_LOAN, null, values3);
 
         database.close();
     }
@@ -72,35 +72,42 @@ public class MaterielDAO {
         Intent intent = new Intent(context, MenuActivity.class);
         int i = 0;
 
-        String selectQuery2 = "SELECT  * FROM " + helper.TABLE_MATERIEL_LOANABLE +" WHERE " + helper.REFERENCE2 + " LIKE " +ref;
+        String selectQuery2 = "SELECT  * FROM " + UserDataBaseOpenHelper.TABLE_MATERIEL_LOANABLE +" WHERE "
+                + UserDataBaseOpenHelper.REFERENCE2 + " LIKE " +ref;
         SQLiteDatabase db2 = helper.getWritableDatabase();
         Cursor cursor2 = db2.rawQuery(selectQuery2, null);
 
-        String selectQuery1 = "SELECT  * FROM " + helper.TABLE_MATERIEL_STOCK +" WHERE " + helper.REFERENCE + " LIKE " +ref;
+        String selectQuery1 = "SELECT  * FROM " + UserDataBaseOpenHelper.TABLE_MATERIEL_STOCK +" WHERE "
+                + UserDataBaseOpenHelper.REFERENCE + " LIKE " +ref;
         SQLiteDatabase db1 = helper.getWritableDatabase();
         Cursor cursor1 = db1.rawQuery(selectQuery1, null);
 
         if (cursor1.moveToFirst()) {
             i = 1;
-            intent.putExtra(helper.REFERENCE,cursor1.getString(0));
-            intent.putExtra(helper.NAME,cursor1.getString(1));
-            intent.putExtra(helper.STOCK_QUANTITY,cursor1.getInt(2));
-            intent.putExtra(helper.STOCK_QUANTITY_ADVISE,cursor1.getInt(3));
-            intent.putExtra(helper.QUANTITY_TO_ORDER,cursor1.getInt(4));
+            intent.putExtra(UserDataBaseOpenHelper.REFERENCE,cursor1.getString(0));
+            intent.putExtra(UserDataBaseOpenHelper.NAME,cursor1.getString(1));
+            intent.putExtra(UserDataBaseOpenHelper.STOCK_QUANTITY,cursor1.getInt(2));
+            intent.putExtra(UserDataBaseOpenHelper.STOCK_QUANTITY_ADVISE,cursor1.getInt(3));
+            intent.putExtra(UserDataBaseOpenHelper.QUANTITY_TO_ORDER,cursor1.getInt(4));
         }
         if (cursor2.moveToFirst()) {
             i=i+2;
             intent.putExtra(UserDataBaseOpenHelper.REFERENCE2,cursor2.getString(0));
-            intent.putExtra(helper.NAME2,cursor2.getString(1));
-            intent.putExtra(helper.TOTAL_QUANTITY,cursor2.getInt(2));
-            intent.putExtra(helper.QUANTITY_BORROWED,cursor2.getInt(3));
-            intent.putExtra(helper.QUANTITY_NOT_BORROWED,cursor2.getInt(4));
-            intent.putExtra(helper.TOTAL_QUANTITY_ADVISE,cursor2.getInt(5));
-            intent.putExtra(helper.QUANTITY_TO_ORDER2,cursor2.getInt(6));
+            intent.putExtra(UserDataBaseOpenHelper.NAME2,cursor2.getString(1));
+            intent.putExtra(UserDataBaseOpenHelper.TOTAL_QUANTITY,cursor2.getInt(2));
+            intent.putExtra(UserDataBaseOpenHelper.QUANTITY_BORROWED,cursor2.getInt(3));
+            intent.putExtra(UserDataBaseOpenHelper.QUANTITY_NOT_BORROWED,cursor2.getInt(4));
+            intent.putExtra(UserDataBaseOpenHelper.TOTAL_QUANTITY_ADVISE,cursor2.getInt(5));
+            intent.putExtra(UserDataBaseOpenHelper.QUANTITY_TO_ORDER2,cursor2.getInt(6));
         }
+
+        cursor1.close();
+        cursor2.close();
+
         if (i==0){
             Intent intent2 = new Intent(context, RefInconnueActivity.class);
             intent2.putExtra(TYPE,"Aucun");
+            intent2.putExtra("REFERENCE",ref);
             return intent2;
         }
         if (i==1) intent.putExtra(TYPE,"Stock");
@@ -113,7 +120,7 @@ public class MaterielDAO {
     public List<MaterielEnStock> rechercheBDDStock(){
 
         List<MaterielEnStock> materielList = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + helper.TABLE_MATERIEL_STOCK;
+        String selectQuery = "SELECT  * FROM " + UserDataBaseOpenHelper.TABLE_MATERIEL_STOCK;
         SQLiteDatabase db = helper.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -130,14 +137,14 @@ public class MaterielDAO {
                 materielList.add(materiel);
             } while (cursor.moveToNext());
         }
-
+        cursor.close();
         // return contact list
         return materielList;
     }
 
     public List<MaterielEmpruntable> rechercheBDDEmpruntable(){
         List<MaterielEmpruntable> materielList = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + helper.TABLE_MATERIEL_LOANABLE;
+        String selectQuery = "SELECT  * FROM " + UserDataBaseOpenHelper.TABLE_MATERIEL_LOANABLE;
         SQLiteDatabase db = helper.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -156,14 +163,14 @@ public class MaterielDAO {
                 materielList.add(materiel);
             } while (cursor.moveToNext());
         }
-
+        cursor.close();
         // return contact list
         return materielList;
     }
 
     public List<Emprunts> rechercheBDDEmprunts(){
         List<Emprunts> empruntsList = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + helper.TABLE_LOAN;
+        String selectQuery = "SELECT  * FROM " + UserDataBaseOpenHelper.TABLE_LOAN;
         SQLiteDatabase db = helper.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -182,7 +189,7 @@ public class MaterielDAO {
             } while (cursor.moveToNext());
         }
 
-
+        cursor.close();
         // return list
         return empruntsList;
     }
@@ -202,7 +209,9 @@ public class MaterielDAO {
         }
         else values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER,0);
 
-        database.update(helper.TABLE_MATERIEL_STOCK, values, helper.REFERENCE + " LIKE " + intent.getStringExtra("REFERENCE"), null);
+        database.update(UserDataBaseOpenHelper.TABLE_MATERIEL_STOCK, values,
+                UserDataBaseOpenHelper.REFERENCE + " LIKE " + intent.getStringExtra("REFERENCE"),
+                null);
     }
 
     public boolean retirerMateriel(Intent intent, int quantity) {
@@ -222,7 +231,9 @@ public class MaterielDAO {
             }
             else  values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER,0);
 
-            database.update(helper.TABLE_MATERIEL_STOCK, values, helper.REFERENCE + " LIKE " + intent.getStringExtra("REFERENCE"), null);
+            database.update(UserDataBaseOpenHelper.TABLE_MATERIEL_STOCK, values,
+                    UserDataBaseOpenHelper.REFERENCE + " LIKE " + intent.getStringExtra("REFERENCE"),
+                    null);
             return true;
 
         }else{
@@ -235,17 +246,21 @@ public class MaterielDAO {
         database = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        int quantityStockFuture = intent.getIntExtra(helper.TOTAL_QUANTITY,0) + quantity;
-        int quantityOrderFuture = intent.getIntExtra(helper.QUANTITY_TO_ORDER2,0) - quantity;
+        int quantityStockFuture = intent.getIntExtra(UserDataBaseOpenHelper.TOTAL_QUANTITY,0) + quantity;
+        int quantityOrderFuture = intent.getIntExtra(UserDataBaseOpenHelper.QUANTITY_TO_ORDER2,0) - quantity;
+        int quantityNotBorrowedFuture = intent.getIntExtra(UserDataBaseOpenHelper.QUANTITY_NOT_BORROWED,0) + quantity;
 
-        values.put(helper.TOTAL_QUANTITY,quantityStockFuture);
+        values.put(UserDataBaseOpenHelper.TOTAL_QUANTITY,quantityStockFuture);
+        values.put(UserDataBaseOpenHelper.QUANTITY_NOT_BORROWED,quantityNotBorrowedFuture);
 
         if (quantityOrderFuture > 0){
-            values.put(helper.QUANTITY_TO_ORDER2,quantityOrderFuture);
+            values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER2,quantityOrderFuture);
         }
-        else values.put(helper.QUANTITY_TO_ORDER2,0);
+        else values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER2,0);
 
-        database.update(helper.TABLE_MATERIEL_LOANABLE, values, helper.REFERENCE2 + " LIKE " + intent.getStringExtra(helper.REFERENCE2), null);
+        database.update(UserDataBaseOpenHelper.TABLE_MATERIEL_LOANABLE, values,
+                UserDataBaseOpenHelper.REFERENCE2 + " LIKE " + intent.getStringExtra(UserDataBaseOpenHelper.REFERENCE2),
+                null);
     }
 
     public boolean retirerMaterielEmpruntable(Intent intent, int quantity) {
@@ -253,23 +268,55 @@ public class MaterielDAO {
         database = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        int quantityStockFuture = intent.getIntExtra(helper.TOTAL_QUANTITY,0) - quantity;
+        int quantityStockFuture = intent.getIntExtra(UserDataBaseOpenHelper.TOTAL_QUANTITY,0) - quantity;
 
         if (quantityStockFuture >= 0){
 
-            values.put(helper.TOTAL_QUANTITY,quantityStockFuture);
+            values.put(UserDataBaseOpenHelper.TOTAL_QUANTITY,quantityStockFuture);
 
-            if (quantityStockFuture < (intent.getIntExtra(helper.TOTAL_QUANTITY_ADVISE,0))){
-                values.put(helper.QUANTITY_TO_ORDER2,(intent.getIntExtra(helper.TOTAL_QUANTITY_ADVISE,0)
+            if (quantityStockFuture < (intent.getIntExtra(UserDataBaseOpenHelper.TOTAL_QUANTITY_ADVISE,0))){
+                values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER2,(intent.getIntExtra(UserDataBaseOpenHelper.TOTAL_QUANTITY_ADVISE,0)
                         - quantityStockFuture));
             }
-            else  values.put(helper.QUANTITY_TO_ORDER2,0);
+            else  values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER2,0);
 
-            database.update(helper.TABLE_MATERIEL_LOANABLE, values, helper.REFERENCE2 + " LIKE " + intent.getStringExtra(helper.REFERENCE2), null);
+            database.update(UserDataBaseOpenHelper.TABLE_MATERIEL_LOANABLE, values,
+                    UserDataBaseOpenHelper.REFERENCE2 + " LIKE " + intent.getStringExtra(UserDataBaseOpenHelper.REFERENCE2),
+                    null);
             return true;
 
         }else{
             return false;
         }
+    }
+
+    public void ajouterReferenceStock(MaterielEnStock materiel){
+
+        database = helper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(UserDataBaseOpenHelper.REFERENCE,materiel.getReference());
+        values.put(UserDataBaseOpenHelper.NAME,materiel.getNom());
+        values.put(UserDataBaseOpenHelper.STOCK_QUANTITY,materiel.getQuantiteStock());
+        values.put(UserDataBaseOpenHelper.STOCK_QUANTITY_ADVISE,materiel.getQuantiteStockConseillee());
+        values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER,materiel.getQuantiteACommander());
+        database.insert(UserDataBaseOpenHelper.TABLE_MATERIEL_STOCK, null, values);
+
+        database.close();
+    }
+
+    public void ajouterReferenceEmpruntable(MaterielEmpruntable materiel){
+
+        database = helper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(UserDataBaseOpenHelper.REFERENCE2,materiel.getReference());
+        values.put(UserDataBaseOpenHelper.NAME2,materiel.getNom());
+        values.put(UserDataBaseOpenHelper.TOTAL_QUANTITY,materiel.getQuantiteTotale());
+        values.put(UserDataBaseOpenHelper.QUANTITY_BORROWED,materiel.getQuantiteEmprunte());
+        values.put(UserDataBaseOpenHelper.QUANTITY_NOT_BORROWED,materiel.getQuantiteNonEmprunte());
+        values.put(UserDataBaseOpenHelper.TOTAL_QUANTITY_ADVISE,materiel.getQuantiteTotaleConseillee());
+        values.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER2,materiel.getQuantiteACommander());
+        database.insert(UserDataBaseOpenHelper.TABLE_MATERIEL_LOANABLE, null, values);
+
+        database.close();
     }
 }
