@@ -2,6 +2,7 @@ package fr.epf.jestock;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -131,6 +132,8 @@ public class AccueilActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_deconnexion :
+                SharedPreferences preferences = getApplicationContext().getSharedPreferences("Pref",MODE_PRIVATE);
+                preferences.edit().clear().apply();
                 Intent intent2 = new Intent(this, ConnexionActivity.class);
                 startActivity(intent2);
                 return true;

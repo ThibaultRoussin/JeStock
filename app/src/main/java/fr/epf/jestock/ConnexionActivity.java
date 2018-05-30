@@ -1,6 +1,7 @@
 package fr.epf.jestock;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -29,11 +30,17 @@ public class ConnexionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_connexion);
         ButterKnife.bind(this);
 
+        SharedPreferences preference = getApplicationContext().getSharedPreferences("Pref",MODE_PRIVATE);
+        if (!preference.getString("Id","null").equals("null") && !preference.getString("Mdp","null").equals("null")){
+            Compte.setCampus(preference.getString("Campus","Sceaux"));
+            Compte.setDroit(preference.getString("Droit","si"));
+            Intent intent = new Intent(this,AccueilActivity.class);
+            startActivity(intent);
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_connexion);
         toolbar.setTitle("Connection");
         setSupportActionBar(toolbar);
-
-        MenuActivity a = new MenuActivity();
     }
 
     @OnClick(R.id.connexion)
@@ -47,6 +54,11 @@ public class ConnexionActivity extends AppCompatActivity {
             if (id.getText().toString().equals(user.getLogin()) && mdp.getText().toString().equals(user.getPassword())){
                 Compte.setCampus("Sceaux");
                 Compte.setDroit(user.getDroit());
+                SharedPreferences preference = getApplicationContext().getSharedPreferences("Pref",MODE_PRIVATE);
+                preference.edit().putString("Id",user.getLogin()).apply();
+                preference.edit().putString("Mdp",user.getPassword()).apply();
+                preference.edit().putString("Droit",user.getDroit()).apply();
+                preference.edit().putString("Campus","Sceaux").apply();
                 startActivity(intent);
             }
         }
@@ -57,6 +69,11 @@ public class ConnexionActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(getApplicationContext(), "Work in progress!", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP|Gravity.LEFT, 125, 150);
         toast.show();
+    }
+
+    @Override
+    public void onBackPressed(){
+        return ;
     }
 
 

@@ -1,6 +1,7 @@
 package fr.epf.jestock;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -86,6 +87,8 @@ public class RefInconnueActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_deconnexion :
+                SharedPreferences preferences = getApplicationContext().getSharedPreferences("Pref",MODE_PRIVATE);
+                preferences.edit().clear().apply();
                 Intent intent2 = new Intent(this, ConnexionActivity.class);
                 startActivity(intent2);
                 return true;
