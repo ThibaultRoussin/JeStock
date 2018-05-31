@@ -6,8 +6,9 @@ package fr.epf.jestock.model;
 
 public class MaterielEmpruntable {
 
-    private String reference;
+    private boolean succes;
     private String nom;
+    private long Reference;
     private int quantiteTotale;
     private int quantiteEmprunte;
     private int quantiteNonEmprunte;
@@ -15,11 +16,12 @@ public class MaterielEmpruntable {
     private int quantiteACommander;
 
     public MaterielEmpruntable() {
+
     }
 
-    public MaterielEmpruntable(String reference, String nom, int quantiteTotale, int quantiteEmprunte, int quantiteNonEmprunte, int quantiteTotaleConseillee, int quantiteACommander) {
-        this.reference = reference;
+    public MaterielEmpruntable(String nom, long reference, int quantiteTotale, int quantiteEmprunte, int quantiteNonEmprunte, int quantiteTotaleConseillee, int quantiteACommander) {
         this.nom = nom;
+        Reference = reference;
         this.quantiteTotale = quantiteTotale;
         this.quantiteEmprunte = quantiteEmprunte;
         this.quantiteNonEmprunte = quantiteNonEmprunte;
@@ -27,12 +29,12 @@ public class MaterielEmpruntable {
         this.quantiteACommander = quantiteACommander;
     }
 
-    public String getReference() {
-        return reference;
+    public boolean isSucces() {
+        return succes;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setSucces(boolean succes) {
+        this.succes = succes;
     }
 
     public String getNom() {
@@ -41,6 +43,14 @@ public class MaterielEmpruntable {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public long getReference() {
+        return Reference;
+    }
+
+    public void setReference(long reference) {
+        Reference = reference;
     }
 
     public int getQuantiteTotale() {

@@ -89,7 +89,7 @@ public class NouvelleRefActivity extends AppCompatActivity {
 
     @OnClick(R.id.bt_newRefOk)
     public void validerNewRef(){
-        MaterielDAO BDD = new MaterielDAO(this);
+        /*MaterielDAO BDD = new MaterielDAO(this);
         Intent intent = new Intent(this,AccueilActivity.class);
         Intent intent2 = getIntent();
         String reference = intent2.getStringExtra(UserDataBaseOpenHelper.REFERENCE2);
@@ -115,7 +115,7 @@ public class NouvelleRefActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(getApplicationContext(), "Choisissez une liste de matériel", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
-        toast.show();
+        toast.show();*/
     }
 
     @Override

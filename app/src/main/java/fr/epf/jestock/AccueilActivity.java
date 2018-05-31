@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -31,6 +33,16 @@ import fr.epf.jestock.data.MaterielDAO;
 import fr.epf.jestock.model.Compte;
 import fr.epf.jestock.model.MaterielEmpruntable;
 import fr.epf.jestock.model.MaterielEnStock;
+import fr.epf.jestock.model.ResultatRecherche;
+import fr.epf.jestock.model.User;
+import fr.epf.jestock.service.IAppelBDD;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AccueilActivity extends AppCompatActivity {
 
@@ -95,10 +107,12 @@ public class AccueilActivity extends AppCompatActivity {
                 final SparseArray<Barcode> code = detections.getDetectedItems();
                 if (code.size() != 0){
                     Log.d("BARCODE", code.valueAt(0).displayValue);
-                    MaterielDAO BDD = new MaterielDAO(getApplicationContext());
 
-                    Intent intent = BDD.rechercheBDD(code.valueAt(0).displayValue);
-                    startActivity(intent);
+                    rechercheRef(Long.parseLong(code.valueAt(0).displayValue));
+                    //MaterielDAO BDD = new MaterielDAO(getApplicationContext());
+
+                    //Intent intent = BDD.rechercheBDD(code.valueAt(0).displayValue);
+                    //startActivity(intent);
                 }
             }
         });
@@ -106,9 +120,11 @@ public class AccueilActivity extends AppCompatActivity {
 
     @OnClick(R.id.bt_rechercher)
     public void rechercher(){
-        MaterielDAO BDD = new MaterielDAO(getApplicationContext());
-        Intent intent = BDD.rechercheBDD(ref.getText().toString());
-        startActivity(intent);
+
+        rechercheRef(Long.parseLong(ref.getText().toString()));
+        //MaterielDAO BDD = new MaterielDAO(getApplicationContext());
+        //Intent intent = BDD.rechercheBDD(ref.getText().toString());
+        //startActivity(intent);
     }
 
     @Override
@@ -152,6 +168,66 @@ public class AccueilActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed(){
+        return ;
+    }
+
+    public void rechercheRef(long ref){
+
+        final Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(httpLoggingInterceptor)
+                .build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getString(R.string.ip_connexion))
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+
+        IAppelBDD appelBDD = retrofit.create(IAppelBDD.class);
+        Log.d("Campus", Compte.getCampus());
+
+        Call<ResultatRecherche> call = appelBDD.sendReferenceStock(ref, Compte.getCampus());
+
+        call.enqueue(new Callback<ResultatRecherche>() {
+            @Override
+            public void onResponse(Call<ResultatRecherche> call, Response<ResultatRecherche> response) {
+                ResultatRecherche result = response.body();
+
+                if (result.getResultat().equals("Stock")){
+                    intent.putExtra("Type","Stock");
+                    startActivity(intent);
+                }
+                if (result.getResultat().equals("Empruntable")) {
+                    intent.putExtra("Type","Empruntable");
+                    startActivity(intent);
+                }
+                if (result.getResultat().equals("Deux")) {
+                    intent.putExtra("Type","Deux");
+                    startActivity(intent);
+                }
+                if (result.getResultat().equals("Aucun")) {
+                    Intent intent1 = new Intent(getApplicationContext(), RefInconnueActivity.class);
+                    startActivity(intent1);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResultatRecherche> call, Throwable t) {
+
+                Toast toast = Toast.makeText(getApplicationContext(), "ERROR1", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
+                toast.show();
+            }
+        });
     }
 
 }

@@ -5,32 +5,33 @@ package fr.epf.jestock.model;
  * Created by Thibault on 11/05/2018.
  */
 
-public class MaterielEnStock {
+public class MaterielEnStock{
 
-    private String reference;
+    private boolean succes;
     private String nom;
+    private long Reference;
     private int quantiteStock;
     private int quantiteStockConseillee;
     private int quantiteACommander;
 
-
     public MaterielEnStock() {
+
     }
 
-    public MaterielEnStock(String reference, String nom, int quantiteStock, int quantiteStockConseillee, int quantiteACommander) {
-        this.reference = reference;
+    public MaterielEnStock(String nom, long reference, int quantiteStock, int quantiteStockConseillee, int quantiteACommander) {
         this.nom = nom;
+        Reference = reference;
         this.quantiteStock = quantiteStock;
         this.quantiteStockConseillee = quantiteStockConseillee;
         this.quantiteACommander = quantiteACommander;
     }
 
-    public String getReference() {
-        return reference;
+    public boolean isSucces() {
+        return succes;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setSucces(boolean succes) {
+        this.succes = succes;
     }
 
     public String getNom() {
@@ -39,6 +40,14 @@ public class MaterielEnStock {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public long getReference() {
+        return Reference;
+    }
+
+    public void setReference(long reference) {
+        Reference = reference;
     }
 
     public int getQuantiteStock() {

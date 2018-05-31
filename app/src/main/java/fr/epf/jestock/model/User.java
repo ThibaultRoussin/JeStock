@@ -1,40 +1,59 @@
 package fr.epf.jestock.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Thibault on 27/04/2018.
  */
 
 public class User {
 
-    private String login;
-    private String password;
-    private String email;
-    private String droit;
+    @SerializedName("succes")
+    private boolean succes;
+    @SerializedName("prenom")
+    private  String firstName;
+    @SerializedName("nom")
+    private  String lastName;
+    @SerializedName("email")
+    private  String email;
+    @SerializedName("statut")
+    private  String statut;
+    @SerializedName("campus")
+    private  String campus;
 
     public User() {
     }
 
-    public User(String login, String password, String email, String droit) {
-        this.login = login;
-        this.password = password;
+    public User(String firstName, String lastName, String email, String statut, String campus) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.droit = droit;
+        this.statut = statut;
+        this.campus = campus;
     }
 
-    public String getLogin() {
-        return login;
+    public boolean isSucces() {
+        return succes;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setSucces(boolean succes) {
+        this.succes = succes;
     }
 
-    public String getPassword() {
-        return password;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -45,11 +64,19 @@ public class User {
         this.email = email;
     }
 
-    public String getDroit() {
-        return droit;
+    public String getStatut() {
+        return statut;
     }
 
-    public void setDroit(String droit) {
-        this.droit = droit;
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    public String getCampus() {
+        return campus;
+    }
+
+    public void setCampus(String campus) {
+        this.campus = campus;
     }
 }

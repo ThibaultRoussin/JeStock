@@ -30,10 +30,10 @@ public class RefInconnueActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ref_inconnue);
         ButterKnife.bind(this);
 
-        if (Compte.getDroit().equals("admin")){
+        if (Compte.getStatut().equals("admin")){
             textCompte.setText("Voulez vous ajouter une nouvelle référence aux stocks?");
         }
-        if (Compte.getDroit().equals("si")){
+        if (Compte.getStatut().equals("membre")){
             textCompte.setText("Si vous souhaitez ajouter cette nouvelle référence aux stocks, connectez vous en tant que Administrateur.");
             retry.setText("SE CONNECTER EN TANT QU'ADMINISTRATEUR");
         }
@@ -50,7 +50,7 @@ public class RefInconnueActivity extends AppCompatActivity {
 
     @OnClick(R.id.bt_newRef)
     public void newRef(){
-        if(Compte.getDroit().equals("SI")){
+        if(Compte.getStatut().equals("membre")){
             Intent intent2 = new Intent(this, ConnexionActivity.class);
             startActivity(intent2);
         }
@@ -64,7 +64,11 @@ public class RefInconnueActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

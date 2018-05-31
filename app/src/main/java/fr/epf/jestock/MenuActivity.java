@@ -58,9 +58,9 @@ public class MenuActivity extends AppCompatActivity {
 
         recupData = getIntent();
 
-        Log.d("Type", recupData.getStringExtra("TYPE"));
+        Log.d("Type", recupData.getStringExtra("Type"));
 
-        if (recupData.getStringExtra("TYPE").equals("Stock")){
+        if (recupData.getStringExtra("Type").equals("Stock")){
             reference.setText(recupData.getStringExtra(UserDataBaseOpenHelper.REFERENCE));
             nom.setText(recupData.getStringExtra(UserDataBaseOpenHelper.NAME));
             hide1 = (Button)findViewById(R.id.bt_ajout_materiel_empruntable);
@@ -72,7 +72,7 @@ public class MenuActivity extends AppCompatActivity {
             hide3.setVisibility(View.INVISIBLE);
             hide4.setVisibility(View.INVISIBLE);
         }
-        if (recupData.getStringExtra("TYPE").equals("Empruntable")){
+        if (recupData.getStringExtra("Type").equals("Empruntable")){
             reference.setText(recupData.getStringExtra(UserDataBaseOpenHelper.REFERENCE2));
             nom.setText(recupData.getStringExtra(UserDataBaseOpenHelper.NAME2));
             hide1 = (Button)findViewById(R.id.bt_ajout_materiel_stock);
@@ -80,7 +80,7 @@ public class MenuActivity extends AppCompatActivity {
             hide1.setVisibility(View.INVISIBLE);
             hide2.setVisibility(View.INVISIBLE);
         }
-        if (recupData.getStringExtra("TYPE").equals("Double")){
+        if (recupData.getStringExtra("Type").equals("Deux")){
             reference.setText(recupData.getStringExtra(UserDataBaseOpenHelper.REFERENCE));
             nom.setText(recupData.getStringExtra(UserDataBaseOpenHelper.NAME));
         }
@@ -148,7 +148,7 @@ public class MenuActivity extends AppCompatActivity {
 
     @OnClick(R.id.bt_ajout_materiel_stock)
     public void ajouterMateriel(){
-        MaterielDAO BDD = new MaterielDAO(this);
+        /*MaterielDAO BDD = new MaterielDAO(this);
         recupData = getIntent();
         BDD.ajouterMateriel(recupData, Integer.parseInt(quantite.getText().toString()));
 
@@ -157,12 +157,12 @@ public class MenuActivity extends AppCompatActivity {
         toast.show();
 
         retourScanner = new Intent(this,AccueilActivity.class);
-        startActivity(retourScanner);
+        startActivity(retourScanner);*/
     }
 
     @OnClick(R.id.bt_retrait_materiel_stock)
     public void retirerMateriel(){
-        MaterielDAO BDD = new MaterielDAO(this);
+        /*MaterielDAO BDD = new MaterielDAO(this);
         recupData = getIntent();
         if (BDD.retirerMateriel(recupData, Integer.parseInt(quantite.getText().toString()))) {
             Toast toast = Toast.makeText(getApplicationContext(), "Matériel retiré!", Toast.LENGTH_SHORT);
@@ -176,12 +176,12 @@ public class MenuActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(getApplicationContext(), "Pas assez de matériel en stock", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP | Gravity.CENTER, 125, 150);
             toast.show();
-        }
+        }*/
     }
 
     @OnClick(R.id.bt_ajout_materiel_empruntable)
     public void ajouterMaterielEmpruntable(){
-        MaterielDAO BDD = new MaterielDAO(this);
+        /*MaterielDAO BDD = new MaterielDAO(this);
         recupData = getIntent();
         BDD.ajouterMaterielEmpruntable(recupData, Integer.parseInt(quantite.getText().toString()));
 
@@ -190,13 +190,13 @@ public class MenuActivity extends AppCompatActivity {
         toast.show();
 
         retourScanner = new Intent(this,AccueilActivity.class);
-        startActivity(retourScanner);
+        startActivity(retourScanner);*/
     }
 
     @OnClick(R.id.bt_retrait_materiel_empruntable)
     public void retirerMaterielEmpruntable(){
 
-        MaterielDAO BDD = new MaterielDAO(this);
+        /*MaterielDAO BDD = new MaterielDAO(this);
         recupData = getIntent();
 
         if(BDD.retirerMaterielEmpruntable(recupData, Integer.parseInt(quantite.getText().toString()))){
@@ -211,7 +211,7 @@ public class MenuActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(getApplicationContext(), "Pas assez de matériel en stock", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
             toast.show();
-        }
+        }*/
 
     }
 

@@ -5,23 +5,18 @@ package fr.epf.jestock.model;
  */
 
 public class Compte {
-    static private String droit;
+    static private String statut;
     static private String campus;
 
     public Compte() {
     }
 
-    public Compte(String droit, String campus){
-        Compte.droit = droit;
-        Compte.campus = campus;
+    public static String getStatut() {
+        return statut;
     }
 
-    public static String getDroit() {
-        return droit;
-    }
-
-    public static void setDroit(String droit) {
-        Compte.droit = droit;
+    public static void setStatut(String statut) {
+        Compte.statut = statut;
     }
 
     public static String getCampus() {

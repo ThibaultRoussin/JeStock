@@ -32,7 +32,7 @@ public class MaterielDAO {
         helper = new UserDataBaseOpenHelper(context);
     }
 
-    public void create(){
+    /*public void create(){
 
         database = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -318,5 +318,5 @@ public class MaterielDAO {
         database.insert(UserDataBaseOpenHelper.TABLE_MATERIEL_LOANABLE, null, values);
 
         database.close();
-    }
+    }*/
 }

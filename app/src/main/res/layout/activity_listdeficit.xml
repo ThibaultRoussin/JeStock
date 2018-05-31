@@ -40,11 +40,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <fragment
-                        android:id="@+id/fragment5"
-                        android:name="fr.epf.jestock.fragment.ListMaterielEnStockDeficitFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="350dp" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -52,13 +48,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
-                    <fragment
-                        android:id="@+id/fragment4"
-                        android:name="fr.epf.jestock.fragment.ListMaterielEmpruntableDeficitFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="350dp" />
-
                 </LinearLayout>
 
             </FrameLayout>
