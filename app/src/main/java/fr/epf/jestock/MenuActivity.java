@@ -24,6 +24,16 @@ import fr.epf.jestock.data.MaterielDAO;
 import fr.epf.jestock.data.UserDAO;
 import fr.epf.jestock.data.UserDataBaseOpenHelper;
 import fr.epf.jestock.model.Compte;
+import fr.epf.jestock.model.ResultatModifQuantite;
+import fr.epf.jestock.model.ResultatRecherche;
+import fr.epf.jestock.service.IAppelBDD;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -58,11 +68,15 @@ public class MenuActivity extends AppCompatActivity {
 
         recupData = getIntent();
 
+        long ref = recupData.getLongExtra("Reference",0);
+        String name = recupData.getStringExtra("Nom");
+
+        reference.setText(String.valueOf(ref));
+        nom.setText(name);
+
         Log.d("Type", recupData.getStringExtra("Type"));
 
         if (recupData.getStringExtra("Type").equals("Stock")){
-            reference.setText(recupData.getStringExtra(UserDataBaseOpenHelper.REFERENCE));
-            nom.setText(recupData.getStringExtra(UserDataBaseOpenHelper.NAME));
             hide1 = (Button)findViewById(R.id.bt_ajout_materiel_empruntable);
             hide2 = (Button)findViewById(R.id.bt_retrait_materiel_empruntable);
             hide3 = (Button)findViewById(R.id.bt_emprunt_materiel);
@@ -73,16 +87,10 @@ public class MenuActivity extends AppCompatActivity {
             hide4.setVisibility(View.INVISIBLE);
         }
         if (recupData.getStringExtra("Type").equals("Empruntable")){
-            reference.setText(recupData.getStringExtra(UserDataBaseOpenHelper.REFERENCE2));
-            nom.setText(recupData.getStringExtra(UserDataBaseOpenHelper.NAME2));
             hide1 = (Button)findViewById(R.id.bt_ajout_materiel_stock);
             hide2 = (Button)findViewById(R.id.bt_retrait_materiel_stock);
             hide1.setVisibility(View.INVISIBLE);
             hide2.setVisibility(View.INVISIBLE);
-        }
-        if (recupData.getStringExtra("Type").equals("Deux")){
-            reference.setText(recupData.getStringExtra(UserDataBaseOpenHelper.REFERENCE));
-            nom.setText(recupData.getStringExtra(UserDataBaseOpenHelper.NAME));
         }
     }
 
@@ -148,20 +156,23 @@ public class MenuActivity extends AppCompatActivity {
 
     @OnClick(R.id.bt_ajout_materiel_stock)
     public void ajouterMateriel(){
+
+        modifierQuantite("Stock", "Ajouter",
+                        Long.parseLong(reference.getText().toString()),
+                        Integer.parseInt(quantite.getText().toString()));
         /*MaterielDAO BDD = new MaterielDAO(this);
         recupData = getIntent();
-        BDD.ajouterMateriel(recupData, Integer.parseInt(quantite.getText().toString()));
+        BDD.ajouterMateriel(recupData, Integer.parseInt(quantite.getText().toString()));*/
 
-        Toast toast = Toast.makeText(getApplicationContext(), "Matériel ajouté!", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
-        toast.show();
 
-        retourScanner = new Intent(this,AccueilActivity.class);
-        startActivity(retourScanner);*/
     }
 
     @OnClick(R.id.bt_retrait_materiel_stock)
     public void retirerMateriel(){
+
+        modifierQuantite("Stock", "Retirer",
+                Long.parseLong(reference.getText().toString()),
+                Integer.parseInt(quantite.getText().toString()));
         /*MaterielDAO BDD = new MaterielDAO(this);
         recupData = getIntent();
         if (BDD.retirerMateriel(recupData, Integer.parseInt(quantite.getText().toString()))) {
@@ -181,6 +192,10 @@ public class MenuActivity extends AppCompatActivity {
 
     @OnClick(R.id.bt_ajout_materiel_empruntable)
     public void ajouterMaterielEmpruntable(){
+
+        modifierQuantite("Empruntable", "Ajouter",
+                Long.parseLong(reference.getText().toString()),
+                Integer.parseInt(quantite.getText().toString()));
         /*MaterielDAO BDD = new MaterielDAO(this);
         recupData = getIntent();
         BDD.ajouterMaterielEmpruntable(recupData, Integer.parseInt(quantite.getText().toString()));
@@ -195,6 +210,10 @@ public class MenuActivity extends AppCompatActivity {
 
     @OnClick(R.id.bt_retrait_materiel_empruntable)
     public void retirerMaterielEmpruntable(){
+
+        modifierQuantite("Empruntable", "Retirer",
+                Long.parseLong(reference.getText().toString()),
+                Integer.parseInt(quantite.getText().toString()));
 
         /*MaterielDAO BDD = new MaterielDAO(this);
         recupData = getIntent();
@@ -227,5 +246,63 @@ public class MenuActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this,ScannerNFCActivity.class);
         startActivity(intent);
+    }
+
+    public void modifierQuantite(String typeMateriel, final String typeModif, long ref, int quantite){
+
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(httpLoggingInterceptor)
+                .build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getString(R.string.ip_connexion))
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+
+        IAppelBDD appelBDD = retrofit.create(IAppelBDD.class);
+        Log.d("Campus", Compte.getCampus());
+
+        Call<ResultatModifQuantite> call = appelBDD.modifierQuantite(typeMateriel, typeModif, ref, quantite, Compte.getCampus());
+
+        call.enqueue(new Callback<ResultatModifQuantite>() {
+            @Override
+            public void onResponse(Call<ResultatModifQuantite> call, Response<ResultatModifQuantite> response) {
+                ResultatModifQuantite result = response.body();
+
+                if (result.isSucces()){
+                    if (typeModif.equals("Ajouter")){
+                        Toast toast = Toast.makeText(getApplicationContext(), "Matériel ajouté!", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
+                        toast.show();
+                    }
+                    else{
+                        Toast toast = Toast.makeText(getApplicationContext(), "Matériel retiré!", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
+                        toast.show();
+                    }
+                    retourScanner = new Intent(getApplicationContext(),AccueilActivity.class);
+                    startActivity(retourScanner);
+                    finish();
+                }
+                else{
+                    Toast toast = Toast.makeText(getApplicationContext(), "Pas assez de matériel en stock", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
+                    toast.show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResultatModifQuantite> call, Throwable t) {
+
+                Toast toast = Toast.makeText(getApplicationContext(), "ERROR1", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
+                toast.show();
+            }
+        });
     }
 }

@@ -175,7 +175,7 @@ public class AccueilActivity extends AppCompatActivity {
         return ;
     }
 
-    public void rechercheRef(long ref){
+    public void rechercheRef(final long ref){
 
         final Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
 
@@ -195,7 +195,7 @@ public class AccueilActivity extends AppCompatActivity {
         IAppelBDD appelBDD = retrofit.create(IAppelBDD.class);
         Log.d("Campus", Compte.getCampus());
 
-        Call<ResultatRecherche> call = appelBDD.sendReferenceStock(ref, Compte.getCampus());
+        Call<ResultatRecherche> call = appelBDD.sendReferenceStock(ref);
 
         call.enqueue(new Callback<ResultatRecherche>() {
             @Override
@@ -204,18 +204,25 @@ public class AccueilActivity extends AppCompatActivity {
 
                 if (result.getResultat().equals("Stock")){
                     intent.putExtra("Type","Stock");
+                    intent.putExtra("Nom",result.getNom());
+                    intent.putExtra("Reference",result.getReference());
                     startActivity(intent);
                 }
                 if (result.getResultat().equals("Empruntable")) {
                     intent.putExtra("Type","Empruntable");
+                    intent.putExtra("Nom",result.getNom());
+                    intent.putExtra("Reference",result.getReference());
                     startActivity(intent);
                 }
                 if (result.getResultat().equals("Deux")) {
                     intent.putExtra("Type","Deux");
+                    intent.putExtra("Nom",result.getNom());
+                    intent.putExtra("Reference",result.getReference());
                     startActivity(intent);
                 }
                 if (result.getResultat().equals("Aucun")) {
                     Intent intent1 = new Intent(getApplicationContext(), RefInconnueActivity.class);
+                    intent1.putExtra("Reference",ref);
                     startActivity(intent1);
                 }
             }

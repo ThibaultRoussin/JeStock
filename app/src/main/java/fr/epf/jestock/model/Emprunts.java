@@ -6,6 +6,7 @@ package fr.epf.jestock.model;
 
 public class Emprunts {
 
+    private long Reference;
     private String numeroEtudiant;
     private String nom;
     private String materielEmprunte;
@@ -21,6 +22,14 @@ public class Emprunts {
         this.materielEmprunte = materielEmprunte;
         this.dateEmprunt = dateEmprunt;
         this.dateRetour = dateRetour;
+    }
+
+    public long getReference() {
+        return Reference;
+    }
+
+    public void setReference(long reference) {
+        Reference = reference;
     }
 
     public String getNumeroEtudiant() {

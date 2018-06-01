@@ -27,7 +27,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListActivity" />
-        <activity android:name=".ListDeficitActivity" />
         <activity android:name=".ScannerNFCActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
@@ -42,7 +41,8 @@
                 android:resource="@xml/nfc_tech_filter" />
         </activity>
         <activity android:name=".RefInconnueActivity" />
-        <activity android:name=".NouvelleRefActivity"></activity>
+        <activity android:name=".NouvelleRefActivity" />
+        <activity android:name=".ListDeficitActivity"></activity>
     </application>
 
 </manifest>
