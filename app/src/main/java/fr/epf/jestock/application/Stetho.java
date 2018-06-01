@@ -20,5 +20,9 @@ public class Stetho extends Application {
 
         userBDD.create();
         materielBDD.create();*/
+
+        //MaterielDAO materielBDD = new MaterielDAO(this);
+        //materielBDD.create2();
+
     }
 }

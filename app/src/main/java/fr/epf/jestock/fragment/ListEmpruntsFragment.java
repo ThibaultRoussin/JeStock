@@ -18,6 +18,9 @@ import fr.epf.jestock.model.Emprunts;
 
 public class ListEmpruntsFragment extends ListFragment {
 
+    public ListEmpruntsFragment() {
+    }
+
     public interface OnMaterielSelectedListener {
         void onMaterielSelected(int id);
     }

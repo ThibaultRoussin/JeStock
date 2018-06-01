@@ -23,6 +23,10 @@
         </activity>
         <activity android:name=".ListActivity" />
         <activity android:name=".ListDeficitActivity"></activity>
+        <activity android:name=".EmpruntsActivity" />
+        <activity android:name=".AfficheInfoCarteEtu_Activity" />
+        <activity android:name=".RenduMaterielActivity" />
+
     </application>
 
 </manifest>

@@ -1,15 +1,17 @@
 package fr.epf.jestock;
 
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fr.epf.jestock.adapter.ListFragmentPagerAdapter;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -24,27 +26,16 @@ public class ListActivity extends AppCompatActivity {
         toolbar.setTitle("Listes");
         setSupportActionBar(toolbar);
 
-        TabHost tabHost;
-        TabHost host = (TabHost)findViewById(R.id.tab_host);
-        host.setup();
 
-        //Tab 1
-        TabHost.TabSpec spec = host.newTabSpec("Matériel en stock");
-        spec.setContent(R.id.tab1);
-        spec.setIndicator("Matériel en stock");
-        host.addTab(spec);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setAdapter(new ListFragmentPagerAdapter(getSupportFragmentManager(), this));
 
-        //Tab 2
-        spec = host.newTabSpec("Matériel empruntable");
-        spec.setContent(R.id.tab2);
-        spec.setIndicator("Matériel empruntable");
-        host.addTab(spec);
 
-        //Tab 3
-        spec = host.newTabSpec("Emprunts");
-        spec.setContent(R.id.tab3);
-        spec.setIndicator("Emprunts");
-        host.addTab(spec);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+
+
 
     }
 

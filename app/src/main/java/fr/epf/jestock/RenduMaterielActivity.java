@@ -1,43 +1,33 @@
 package fr.epf.jestock;
 
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import fr.epf.jestock.adapter.ListFragmentPagerAdapter;
 
-public class ListDeficitActivity extends AppCompatActivity {
+/**
+ * Created by Utilisateur on 01/06/2018.
+ */
+
+public class RenduMaterielActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listdeficit2);
+
+        setContentView(R.layout.activity_rendu_materiel);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_deficit);
-        toolbar.setTitle("Déficit");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_rendu_materiel);
+        toolbar.setTitle("Restitution matériel");
         setSupportActionBar(toolbar);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpagerdeficit);
-        viewPager.setAdapter(new ListFragmentPagerAdapter(getSupportFragmentManager(), this));
-
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabsdeficit);
-        tabLayout.setupWithViewPager(viewPager);
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.barre_menu, menu);
-        return true;
     }
 
     @Override
@@ -63,9 +53,9 @@ public class ListDeficitActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.bt_retour_accueil2)
-    public void retourAccueil(){
-        Intent intent = new Intent(this,AccueilActivity.class);
-        startActivity(intent);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.barre_menu, menu);
+        return true;
     }
 }

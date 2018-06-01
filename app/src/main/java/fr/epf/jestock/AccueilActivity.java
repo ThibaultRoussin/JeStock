@@ -21,14 +21,11 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.epf.jestock.data.MaterielDAO;
-import fr.epf.jestock.model.MaterielEmpruntable;
-import fr.epf.jestock.model.MaterielEnStock;
 
 public class AccueilActivity extends AppCompatActivity {
 
@@ -120,17 +117,20 @@ public class AccueilActivity extends AppCompatActivity {
 
         switch(item.getItemId()){
             case R.id.action_affiche_listes:
-                Intent intent = new Intent(this, ListActivity.class);
+                Intent intent = new Intent(this, EmpruntsActivity.class);
+                //ListActivity
                 startActivity(intent);
                 return true;
 
             case R.id.action_notification:
-                Intent intent1 = new Intent(this, ListDeficitActivity.class);
+                Intent intent1 = new Intent(this, RenduMaterielActivity.class);
+                //AfficheInfoCarteEtu_Activity
                 startActivity(intent1);
                 return true;
 
             case R.id.action_deconnexion :
                 Intent intent2 = new Intent(this, ConnexionActivity.class);
+                //SaisieManuelleCarteEtuActivity
                 startActivity(intent2);
                 return true;
         }

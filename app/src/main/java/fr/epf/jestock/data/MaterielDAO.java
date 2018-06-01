@@ -66,6 +66,18 @@ public class MaterielDAO {
         database.close();
     }
 
+    public void create2(){
+        database = helper.getWritableDatabase();
+        ContentValues values2 = new ContentValues();
+        values2.put(UserDataBaseOpenHelper.REFERENCE,"88888888");
+        values2.put(UserDataBaseOpenHelper.NAME,"Test2");
+        values2.put(UserDataBaseOpenHelper.STOCK_QUANTITY,19);
+        values2.put(UserDataBaseOpenHelper.STOCK_QUANTITY_ADVISE,5);
+        values2.put(UserDataBaseOpenHelper.QUANTITY_TO_ORDER,0);
+        database.insert(helper.TABLE_MATERIEL_STOCK, null, values2);
+        database.close();
+    }
+
 
     public Intent rechercheBDD(String ref){
         Intent intent = new Intent(context, MenuActivity.class);
@@ -172,6 +184,7 @@ public class MaterielDAO {
                 emprunt.setMaterielEmprunte(cursor.getString(1));
                 emprunt.setDateEmprunt(cursor.getString(7));
                 emprunt.setDateRetour(cursor.getString(8));
+                emprunt.setReference(cursor.getString(2));
                 // Ajout de l'emprunt a la liste
                 empruntsList.add(emprunt);
             } while (cursor.moveToNext());

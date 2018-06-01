@@ -202,4 +202,27 @@ public class MenuActivity extends AppCompatActivity {
     public void rendreMateriel(){
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch(item.getItemId()){
+            case R.id.action_affiche_listes:
+                Intent intent = new Intent(this, ListActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.action_notification:
+                Intent intent1 = new Intent(this, ListDeficitActivity.class);
+                startActivity(intent1);
+                return true;
+
+            case R.id.action_deconnexion :
+                Intent intent2 = new Intent(this, ConnexionActivity.class);
+                startActivity(intent2);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

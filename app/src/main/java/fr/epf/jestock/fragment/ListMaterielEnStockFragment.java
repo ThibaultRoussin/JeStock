@@ -3,8 +3,11 @@ package fr.epf.jestock.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -23,6 +26,11 @@ public class ListMaterielEnStockFragment extends ListFragment {
     public interface OnMaterielSelectedListener {
         void onMaterielSelected(int id);
     }
+
+    public ListMaterielEnStockFragment() {
+    }
+
+
 
     private OnMaterielSelectedListener listener;
 
@@ -45,10 +53,14 @@ public class ListMaterielEnStockFragment extends ListFragment {
     }
 
 
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         if (listener!=null) {
             listener.onMaterielSelected(position);
         }
     }
+
+
+
 }

@@ -1,6 +1,8 @@
 package fr.epf.jestock.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,8 @@ import fr.epf.jestock.model.MaterielEnStock;
  * Created by Utilisateur on 22/05/2018.
  */
 
-public class ListAdapterMaterielEnStock extends ArrayAdapter<MaterielEnStock>{
+public class ListAdapterMaterielEnStock extends ArrayAdapter<MaterielEnStock>   {
+
 
     public ListAdapterMaterielEnStock(Context context, List<MaterielEnStock> objects) {
         super(context, 0, objects);
@@ -34,8 +37,10 @@ public class ListAdapterMaterielEnStock extends ArrayAdapter<MaterielEnStock>{
         }
 
         MaterielEnStock materielEnStock = getItem(position);
+        TextView reference = (TextView)convertView.findViewById(R.id.ref1_textview);
         TextView nom = (TextView)convertView.findViewById(R.id.nom1_textview);
         TextView quantite = (TextView)convertView.findViewById(R.id.quantite_textview);
+        reference.setText(materielEnStock.getReference());
         nom.setText(materielEnStock.getNom());
         quantite.setText(Integer.toString(materielEnStock.getQuantiteStock()));
 

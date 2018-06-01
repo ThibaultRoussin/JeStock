@@ -33,11 +33,13 @@ public class ListAdapterEmprunts extends ArrayAdapter<Emprunts>{
         Emprunts emprunts = getItem(position);
         TextView numeroEtudiant = (TextView)convertView.findViewById(R.id.numero_etudiant__textview);
         TextView nom = (TextView)convertView.findViewById(R.id.nom3_textview);
+        TextView ref = (TextView)convertView.findViewById(R.id.ref3_textview);
         TextView materielEmprunte = (TextView)convertView.findViewById(R.id.materiel_emprunte_textview);
         TextView dateEmprunt = (TextView)convertView.findViewById(R.id.date_emprunt_textview);
         TextView dateRetour = (TextView)convertView.findViewById(R.id.date_retour_textview);
         numeroEtudiant.setText(emprunts.getNumeroEtudiant());
         nom.setText(emprunts.getNom());
+        ref.setText(emprunts.getReference());
         materielEmprunte.setText(emprunts.getMaterielEmprunte());
         dateEmprunt.setText(emprunts.getDateEmprunt());
         dateRetour.setText(emprunts.getDateRetour());

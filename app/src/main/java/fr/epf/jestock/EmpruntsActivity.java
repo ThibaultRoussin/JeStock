@@ -1,43 +1,43 @@
 package fr.epf.jestock;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import fr.epf.jestock.adapter.ListFragmentPagerAdapter;
+import fr.epf.jestock.adapter.EmpruntsEleveFragmentPagerAdapter;
 
-public class ListDeficitActivity extends AppCompatActivity {
+/**
+ * Created by Utilisateur on 31/05/2018.
+ */
+
+public class EmpruntsActivity extends AppCompatActivity{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listdeficit2);
+
+        setContentView(R.layout.activity_emprunts);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_deficit);
-        toolbar.setTitle("Déficit");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_emprunts);
+        toolbar.setTitle("Emprunts");
         setSupportActionBar(toolbar);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpagerdeficit);
-        viewPager.setAdapter(new ListFragmentPagerAdapter(getSupportFragmentManager(), this));
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_emprunts);
+        viewPager.setAdapter(new EmpruntsEleveFragmentPagerAdapter(getSupportFragmentManager(), this));
 
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabsdeficit);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs_emprunts);
         tabLayout.setupWithViewPager(viewPager);
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.barre_menu, menu);
-        return true;
     }
 
     @Override
@@ -63,9 +63,10 @@ public class ListDeficitActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.bt_retour_accueil2)
-    public void retourAccueil(){
-        Intent intent = new Intent(this,AccueilActivity.class);
-        startActivity(intent);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.barre_menu, menu);
+        return true;
     }
 }
+

@@ -1,36 +1,43 @@
 package fr.epf.jestock;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import fr.epf.jestock.adapter.ListFragmentPagerAdapter;
+import fr.epf.jestock.data.UserDAO;
 
-public class ListDeficitActivity extends AppCompatActivity {
+/**
+ * Created by Utilisateur on 31/05/2018.
+ */
 
+public class AfficheInfoCarteEtu_Activity extends AppCompatActivity{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listdeficit2);
+
+        setContentView(R.layout.activity_afficheinfocarteetu);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_deficit);
-        toolbar.setTitle("Déficit");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
+        toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpagerdeficit);
-        viewPager.setAdapter(new ListFragmentPagerAdapter(getSupportFragmentManager(), this));
+        Context context = getApplicationContext();
+        CharSequence text = "La carte étudiante a bien été reconnue!";
+        int duration = Toast.LENGTH_SHORT;
 
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabsdeficit);
-        tabLayout.setupWithViewPager(viewPager);
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.setGravity(Gravity.TOP|Gravity.LEFT, 125, 150);
+        toast.show();
 
     }
 
@@ -38,6 +45,13 @@ public class ListDeficitActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.barre_menu, menu);
         return true;
+    }
+
+    @OnClick(R.id.bt_suivant)
+    public void suivant(){
+
+        Intent intent = new Intent(this,ListActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -61,11 +75,5 @@ public class ListDeficitActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @OnClick(R.id.bt_retour_accueil2)
-    public void retourAccueil(){
-        Intent intent = new Intent(this,AccueilActivity.class);
-        startActivity(intent);
     }
 }

@@ -8,22 +8,25 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import fr.epf.jestock.adapter.ListAdapterMaterielEmpruntable;
+import fr.epf.jestock.adapter.ListAdapterMaterielEnStock;
+import fr.epf.jestock.adapter.ListAdapterRenduMateriel;
 import fr.epf.jestock.data.MaterielDAO;
-import fr.epf.jestock.model.MaterielEmpruntable;
+import fr.epf.jestock.model.Emprunts;
 
 /**
- * Created by Utilisateur on 25/05/2018.
+ * Created by Utilisateur on 01/06/2018.
  */
 
-public class ListMaterielEmpruntableFragment extends ListFragment {
+public class ListRenduMaterielFragment extends ListFragment {
 
     public interface OnMaterielSelectedListener {
         void onMaterielSelected(int id);
     }
 
-    public ListMaterielEmpruntableFragment() {
+    public ListRenduMaterielFragment() {
     }
+
+
 
     private OnMaterielSelectedListener listener;
 
@@ -40,10 +43,11 @@ public class ListMaterielEmpruntableFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         MaterielDAO materielDAO = new MaterielDAO(getContext());
-        List<MaterielEmpruntable> materielEmpruntable = materielDAO.rechercheBDDEmpruntable();
-        ListAdapterMaterielEmpruntable adapter = new ListAdapterMaterielEmpruntable(getActivity(), materielEmpruntable);
+        List<Emprunts> rendumateriel = materielDAO.rechercheBDDEmprunts();
+        ListAdapterRenduMateriel adapter = new ListAdapterRenduMateriel(getActivity(), rendumateriel);
         setListAdapter(adapter);
     }
+
 
 
     @Override
@@ -52,4 +56,5 @@ public class ListMaterielEmpruntableFragment extends ListFragment {
             listener.onMaterielSelected(position);
         }
     }
+
 }

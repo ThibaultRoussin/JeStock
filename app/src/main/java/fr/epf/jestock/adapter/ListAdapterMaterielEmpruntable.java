@@ -32,11 +32,15 @@ public class ListAdapterMaterielEmpruntable extends ArrayAdapter<MaterielEmprunt
         }
 
         MaterielEmpruntable materielEmpruntable = getItem(position);
+        TextView ref = (TextView)convertView.findViewById(R.id.ref2_textview);
         TextView nom = (TextView)convertView.findViewById(R.id.nom2_textview);
         TextView quantiteTotale = (TextView)convertView.findViewById(R.id.quantite_totale_textview);
         TextView quantiteDisponible = (TextView)convertView.findViewById(R.id.quantite_disponible_textview);
+        TextView quantiteEmpruntee = (TextView)convertView.findViewById(R.id.quantite_empruntee_textview);
         nom.setText(materielEmpruntable.getNom());
+        ref.setText(materielEmpruntable.getReference());
         quantiteTotale.setText(Integer.toString(materielEmpruntable.getQuantiteTotale()));
+        quantiteEmpruntee.setText(Integer.toString(materielEmpruntable.getQuantiteEmprunte()));
         quantiteDisponible.setText(Integer.toString(materielEmpruntable.getQuantiteNonEmprunte()));
 
         return convertView;

@@ -11,16 +11,19 @@ public class Emprunts {
     private String materielEmprunte;
     private String dateEmprunt;
     private String dateRetour;
+    private String reference;
 
     public Emprunts() {
     }
 
-    public Emprunts(String numeroEtudiant, String nom, String materielEmprunte, String dateEmprunt, String dateRetour) {
+
+    public Emprunts(String numeroEtudiant, String nom, String materielEmprunte, String dateEmprunt, String dateRetour, String reference) {
         this.numeroEtudiant = numeroEtudiant;
         this.nom = nom;
         this.materielEmprunte = materielEmprunte;
         this.dateEmprunt = dateEmprunt;
         this.dateRetour = dateRetour;
+        this.reference = reference;
     }
 
     public String getNumeroEtudiant() {
@@ -60,6 +63,14 @@ public class Emprunts {
 
     public void setDateRetour(String dateRetour) {
         this.dateRetour = dateRetour;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
 }
