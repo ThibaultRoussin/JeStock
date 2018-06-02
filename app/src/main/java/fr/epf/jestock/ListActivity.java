@@ -9,12 +9,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import fr.epf.jestock.adapter.SampleFragmentPagerAdapter;
-import fr.epf.jestock.model.Compte;
+import fr.epf.jestock.adapter.ListMaterielFragmentPagerAdapter;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -30,7 +28,7 @@ public class ListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager(), this));
+        viewPager.setAdapter(new ListMaterielFragmentPagerAdapter(getSupportFragmentManager(), this));
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);

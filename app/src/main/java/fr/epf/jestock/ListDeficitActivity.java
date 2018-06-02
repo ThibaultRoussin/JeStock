@@ -2,6 +2,8 @@ package fr.epf.jestock;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +12,8 @@ import android.view.MenuItem;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fr.epf.jestock.adapter.ListDeficitFragmentPagerAdapter;
+import fr.epf.jestock.adapter.ListMaterielFragmentPagerAdapter;
 import fr.epf.jestock.model.Compte;
 
 public class ListDeficitActivity extends AppCompatActivity {
@@ -23,6 +27,13 @@ public class ListDeficitActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_listeDeficit);
         toolbar.setTitle("Deficit");
         setSupportActionBar(toolbar);
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_deficit);
+        viewPager.setAdapter(new ListDeficitFragmentPagerAdapter(getSupportFragmentManager()));
+
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs_deficit);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override

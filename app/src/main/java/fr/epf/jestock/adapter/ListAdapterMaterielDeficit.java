@@ -10,15 +10,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import fr.epf.jestock.R;
+import fr.epf.jestock.model.MaterielDeficit;
 import fr.epf.jestock.model.MaterielEmpruntable;
 
 /**
  * Created by Utilisateur on 25/05/2018.
  */
 
-public class ListAdapterMaterielEmpruntableDeficit extends ArrayAdapter<MaterielEmpruntable> {
+public class ListAdapterMaterielDeficit extends ArrayAdapter<MaterielDeficit> {
 
-    public ListAdapterMaterielEmpruntableDeficit(Context context, List<MaterielEmpruntable> objects) {
+    public ListAdapterMaterielDeficit(Context context, List<MaterielDeficit> objects) {
         super(context, 0, objects);
     }
 
@@ -30,13 +31,13 @@ public class ListAdapterMaterielEmpruntableDeficit extends ArrayAdapter<Materiel
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_materieldeficit_view,parent, false);
         }
 
-        MaterielEmpruntable materielEmpruntable = getItem(position);
+        MaterielDeficit materielDeficit = getItem(position);
         TextView nom = (TextView)convertView.findViewById(R.id.nom3_textview);
         TextView ref = (TextView)convertView.findViewById(R.id.reference_a_commander_textview);
         TextView aCommander = (TextView)convertView.findViewById(R.id.a_commander_textview);
-        nom.setText(materielEmpruntable.getNom());
-        ref.setText(String.valueOf(materielEmpruntable.getReference()));
-        aCommander.setText(Integer.toString(materielEmpruntable.getQuantiteACommander()));
+        nom.setText(materielDeficit.getNom());
+        ref.setText(String.valueOf(materielDeficit.getReference()));
+        aCommander.setText(Integer.toString(materielDeficit.getQuantiteACommander()));
 
         return convertView;
     }

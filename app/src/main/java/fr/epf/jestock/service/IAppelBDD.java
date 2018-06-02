@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.epf.jestock.model.Emprunts;
 import fr.epf.jestock.model.Etudiant;
+import fr.epf.jestock.model.MaterielDeficit;
 import fr.epf.jestock.model.MaterielEmpruntable;
 import fr.epf.jestock.model.MaterielEnStock;
 import fr.epf.jestock.model.SuccesRequete;
@@ -68,6 +69,12 @@ public interface IAppelBDD {
     @FormUrlEncoded
     @POST("/JeStock/affichageListeEmprunt.php")
     Call<List<Emprunts>> affichageListeEmprunt(
+            @Field("campus") String campus);
+
+    @FormUrlEncoded
+    @POST("/JeStock/affichageListeDeficit.php")
+    Call<List<MaterielDeficit>> affichageListeDeficit(
+            @Field("type") String type,
             @Field("campus") String campus);
 
     @FormUrlEncoded

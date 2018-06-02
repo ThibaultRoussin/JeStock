@@ -10,11 +10,11 @@ import fr.epf.jestock.fragment.ListEmpruntsFragment;
 import fr.epf.jestock.fragment.ListMaterielEmpruntableFragment;
 import fr.epf.jestock.fragment.ListMaterielEnStockFragment;
 
-public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
+public class ListMaterielFragmentPagerAdapter extends FragmentPagerAdapter {
     private static int NUM_ITEMS = 3;
     private String tabTitles[] = new String[]{"Matériel en stock","Matériel empruntable", "Emprunts"};
 
-    public SampleFragmentPagerAdapter(FragmentManager fragmentManager, Context context) {
+    public ListMaterielFragmentPagerAdapter(FragmentManager fragmentManager, Context context) {
         super(fragmentManager);
     }
 
@@ -28,12 +28,9 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-                if (position == 0) return new ListMaterielEnStockFragment();
-                else if (position == 1) return new ListMaterielEmpruntableFragment();
-                else  return new ListEmpruntsFragment();
-
-
-
+        if (position == 0) return new ListMaterielEnStockFragment();
+        else if (position == 1) return new ListMaterielEmpruntableFragment();
+        else  return new ListEmpruntsFragment();
     }
 
     // Returns the page title for the top indicator
