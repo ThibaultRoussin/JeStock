@@ -41,7 +41,7 @@ public class AfficherInfoCarteEtuActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
-        toolbar.setTitle("Menu");
+        toolbar.setTitle("Vérification");
         setSupportActionBar(toolbar);
 
         recupEtudiant(intent);

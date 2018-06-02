@@ -42,7 +42,7 @@ public class MenuActivity extends AppCompatActivity {
 
 
     private Button hide1,hide2,hide3,hide4;
-    private Intent recupData, retourScanner;
+    private Intent recupData, retourListe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,18 +133,6 @@ public class MenuActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(this, ConnexionActivity.class);
                 startActivity(intent2);
                 return true;
-
-            case R.id.action_sceaux:
-                Compte.setCampus("Sceaux");
-                return true;
-
-            case R.id.action_montpellier:
-                Compte.setCampus("montpellier");
-                return true;
-
-            case R.id.action_troyes:
-                Compte.setCampus("troyes");
-                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -233,8 +221,8 @@ public class MenuActivity extends AppCompatActivity {
                         toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
                         toast.show();
                     }
-                    retourScanner = new Intent(getApplicationContext(),AccueilActivity.class);
-                    startActivity(retourScanner);
+                    retourListe = new Intent(getApplicationContext(),AccueilActivity.class);
+                    startActivity(retourListe);
                     finish();
                 }
                 else{

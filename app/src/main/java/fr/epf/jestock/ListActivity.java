@@ -64,18 +64,6 @@ public class ListActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(this, ConnexionActivity.class);
                 startActivity(intent2);
                 return true;
-
-            case R.id.action_sceaux:
-                Compte.setCampus("Sceaux");
-                return true;
-
-            case R.id.action_montpellier:
-                Compte.setCampus("montpellier");
-                return true;
-
-            case R.id.action_troyes:
-                Compte.setCampus("troyes");
-                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -85,5 +73,10 @@ public class ListActivity extends AppCompatActivity {
     public void retourAccueil(){
         Intent intent = new Intent(this,AccueilActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed(){
+        return ;
     }
 }

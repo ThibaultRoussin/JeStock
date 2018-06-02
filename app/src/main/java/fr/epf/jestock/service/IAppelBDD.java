@@ -69,4 +69,14 @@ public interface IAppelBDD {
     @POST("/JeStock/affichageListeEmprunt.php")
     Call<List<Emprunts>> affichageListeEmprunt(
             @Field("campus") String campus);
+
+    @FormUrlEncoded
+    @POST("/JeStock/nouvelleRef.php")
+    Call<Void> nouvelleRef(
+            @Field("type") String type,
+            @Field("ref") long ref,
+            @Field("nomRef") String nomRef,
+            @Field("quantiteAjoutee") int quantiteAjoutee,
+            @Field("quantiteConseillee") int prenomEmprunteur,
+            @Field("campus") String campus);
 }

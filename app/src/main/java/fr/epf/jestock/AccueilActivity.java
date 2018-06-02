@@ -109,10 +109,6 @@ public class AccueilActivity extends AppCompatActivity {
                     Log.d("BARCODE", code.valueAt(0).displayValue);
 
                     rechercheRef(Long.parseLong(code.valueAt(0).displayValue));
-                    //MaterielDAO BDD = new MaterielDAO(getApplicationContext());
-
-                    //Intent intent = BDD.rechercheBDD(code.valueAt(0).displayValue);
-                    //startActivity(intent);
                 }
             }
         });
@@ -122,9 +118,7 @@ public class AccueilActivity extends AppCompatActivity {
     public void rechercher(){
 
         rechercheRef(Long.parseLong(ref.getText().toString()));
-        //MaterielDAO BDD = new MaterielDAO(getApplicationContext());
-        //Intent intent = BDD.rechercheBDD(ref.getText().toString());
-        //startActivity(intent);
+
     }
 
     @Override
@@ -152,18 +146,6 @@ public class AccueilActivity extends AppCompatActivity {
                 preferences.edit().clear().apply();
                 Intent intent2 = new Intent(this, ConnexionActivity.class);
                 startActivity(intent2);
-                return true;
-
-            case R.id.action_sceaux:
-                Compte.setCampus("Sceaux");
-                return true;
-
-            case R.id.action_montpellier:
-                Compte.setCampus("montpellier");
-                return true;
-
-            case R.id.action_troyes:
-                Compte.setCampus("troyes");
                 return true;
         }
 

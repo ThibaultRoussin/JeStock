@@ -18,32 +18,43 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Le matériel identifié n'est présent dans aucun des stocks de l'école"
+        android:gravity="center"
+        android:text="Le matériel identifié n'est présent dans aucun des stocks de l'école."
         android:textSize="24sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
 
     <TextView
         android:id="@+id/textCompte"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:textSize="24sp" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="bottom"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/bt_retry"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#ca142d"
+            android:textColor="@android:color/white"
             android:text="Réessayer" />
 
         <Button
             android:id="@+id/bt_newRef"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#ca142d"
+            android:textColor="@android:color/white"
             android:text="Ajouter une nouvelle référence" />
     </LinearLayout>
 

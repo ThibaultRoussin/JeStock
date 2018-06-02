@@ -44,7 +44,7 @@ public class EmpruntsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_emprunts);
-        toolbar.setTitle("Emprunts");
+        toolbar.setTitle("Emprunt");
         setSupportActionBar(toolbar);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_emprunts);

@@ -13,15 +13,27 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTouch;
+import fr.epf.jestock.adapter.ListAdapterEmprunts;
 import fr.epf.jestock.data.MaterielDAO;
 import fr.epf.jestock.data.UserDataBaseOpenHelper;
 import fr.epf.jestock.model.Compte;
+import fr.epf.jestock.model.Emprunts;
 import fr.epf.jestock.model.MaterielEmpruntable;
 import fr.epf.jestock.model.MaterielEnStock;
+import fr.epf.jestock.service.IAppelBDD;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NouvelleRefActivity extends AppCompatActivity {
 
@@ -45,7 +57,7 @@ public class NouvelleRefActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        ref.setText(intent.getStringExtra(UserDataBaseOpenHelper.REFERENCE2));
+        ref.setText(String.valueOf(intent.getLongExtra("Reference",0)));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_newRef);
         toolbar.setTitle("Nouveau");
@@ -89,33 +101,49 @@ public class NouvelleRefActivity extends AppCompatActivity {
 
     @OnClick(R.id.bt_newRefOk)
     public void validerNewRef(){
-        /*MaterielDAO BDD = new MaterielDAO(this);
-        Intent intent = new Intent(this,AccueilActivity.class);
-        Intent intent2 = getIntent();
-        String reference = intent2.getStringExtra(UserDataBaseOpenHelper.REFERENCE2);
-        String name = nom.getText().toString();
-        int quantiteStock = Integer.parseInt(quantiteAdd.getText().toString());
+
+        String liste = "";
+        String nomRef = nom.getText().toString();
+        long reference = Long.parseLong(ref.getText().toString());
+        int quantiteAjoutee = Integer.parseInt(quantiteAdd.getText().toString());
         int quantiteConseillee = Integer.parseInt(quantiteConseil.getText().toString());
-        int quantiteACommander = 0;
 
-        if (quantiteStock < quantiteConseillee) {
-            quantiteACommander = quantiteConseillee - quantiteStock;
-        }
+        if (stock.isChecked()) liste = "stock";
+        else if (empruntable.isChecked()) liste = "empruntable";
+        else Toast.makeText(this, "Choisissez une liste", Toast.LENGTH_SHORT).show();
 
-        if (stock.isChecked()){
-            MaterielEnStock materiel = new MaterielEnStock(reference, name, quantiteStock, quantiteConseillee, quantiteACommander);
-            BDD.ajouterReferenceStock(materiel);
-            startActivity(intent);
-        }
-        if (empruntable.isChecked()){
-            MaterielEmpruntable materiel = new MaterielEmpruntable(reference, name, quantiteStock, 0, quantiteStock, quantiteConseillee, quantiteACommander);
-            BDD.ajouterReferenceEmpruntable(materiel);
-            startActivity(intent);
-        }
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        Toast toast = Toast.makeText(getApplicationContext(), "Choisissez une liste de matériel", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
-        toast.show();*/
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(httpLoggingInterceptor)
+                .build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getString(R.string.ip_connexion))
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+
+        IAppelBDD appelBDD = retrofit.create(IAppelBDD.class);
+
+        Call<Void> call = appelBDD.nouvelleRef(liste,reference,nomRef,quantiteAjoutee,quantiteConseillee,Compte.getCampus());
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+                Toast.makeText(getApplicationContext(), "Matériel ajouté au stock", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(),ListActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+                Toast.makeText(getApplicationContext(), "Erreur ajout d'une nouvelle référence", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -143,18 +171,6 @@ public class NouvelleRefActivity extends AppCompatActivity {
                 preferences.edit().clear().apply();
                 Intent intent2 = new Intent(this, ConnexionActivity.class);
                 startActivity(intent2);
-                return true;
-
-            case R.id.action_sceaux:
-                Compte.setCampus("Sceaux");
-                return true;
-
-            case R.id.action_montpellier:
-                Compte.setCampus("montpellier");
-                return true;
-
-            case R.id.action_troyes:
-                Compte.setCampus("troyes");
                 return true;
         }
 

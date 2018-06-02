@@ -30,11 +30,17 @@ public class RefInconnueActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ref_inconnue);
         ButterKnife.bind(this);
 
+        Intent intent = getIntent();
+
         if (Compte.getStatut().equals("admin")){
-            textCompte.setText("Voulez vous ajouter une nouvelle référence aux stocks?");
+            textCompte.setText("Voulez vous ajouter cette nouvelle référence '" +
+                                intent.getLongExtra("Reference", 0) +
+                                "' aux stocks?");
         }
         if (Compte.getStatut().equals("membre")){
-            textCompte.setText("Si vous souhaitez ajouter cette nouvelle référence aux stocks, connectez vous en tant que Administrateur.");
+            textCompte.setText("Si vous souhaitez ajouter cette nouvelle référence '" +
+                    intent.getLongExtra("Reference",0) +
+                    "' aux stocks, connectez vous en tant qu'Administrateur.");
             retry.setText("SE CONNECTER EN TANT QU'ADMINISTRATEUR");
         }
 
@@ -51,15 +57,17 @@ public class RefInconnueActivity extends AppCompatActivity {
     @OnClick(R.id.bt_newRef)
     public void newRef(){
         if(Compte.getStatut().equals("membre")){
+            SharedPreferences preferences = getApplicationContext().getSharedPreferences("Pref",MODE_PRIVATE);
+            preferences.edit().clear().apply();
             Intent intent2 = new Intent(this, ConnexionActivity.class);
             startActivity(intent2);
         }
         else {
             Intent intent = getIntent();
-            String ref = intent.getStringExtra("REFERENCE");
-            Log.d("REF INCONNUE", ref);
+            long ref = intent.getLongExtra("Reference",0);
+            Log.d("REF INCONNUE", String.valueOf(ref));
             Intent intent2 = new Intent(this, NouvelleRefActivity.class);
-            intent2.putExtra("REFERENCE", ref);
+            intent2.putExtra("Reference", ref);
             startActivity(intent2);
         }
     }
@@ -95,18 +103,6 @@ public class RefInconnueActivity extends AppCompatActivity {
                 preferences.edit().clear().apply();
                 Intent intent2 = new Intent(this, ConnexionActivity.class);
                 startActivity(intent2);
-                return true;
-
-            case R.id.action_sceaux:
-                Compte.setCampus("Sceaux");
-                return true;
-
-            case R.id.action_montpellier:
-                Compte.setCampus("montpellier");
-                return true;
-
-            case R.id.action_troyes:
-                Compte.setCampus("troyes");
                 return true;
         }
 
