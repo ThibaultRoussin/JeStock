@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_accueil"
-        android:minHeight="?attr/actionBarSize"
-        android:background="#ca142d"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.Toolbar>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
 
     <TextView
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Scannez le matériel :"
+        android:gravity="center"
+        android:text="Approchez la carte étudiante"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:textStyle="italic" />
+        android:textStyle="bold|italic" />
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 
-    <SurfaceView
-        android:id="@+id/cameraPreview"
-        android:layout_width="350dp"
-        android:layout_height="250dp" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/nfc" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Saisie manuelle :"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edit_ref"
+        android:id="@+id/edit_numero_etu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -52,12 +52,13 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/bt_rechercher"
+            android:id="@+id/bt_valider_eleve"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ca142d"
-            android:text="Rechercher"
+            android:text="Valider"
             android:textColor="@android:color/white" />
     </LinearLayout>
+
 
 </LinearLayout>

@@ -1,6 +1,8 @@
 package fr.epf.jestock.model;
 
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Thibault on 11/05/2018.
  */
@@ -8,8 +10,11 @@ package fr.epf.jestock.model;
 public class MaterielEnStock{
 
     private boolean succes;
+    @SerializedName("nom")
     private String nom;
+    @SerializedName("reference")
     private long Reference;
+    @SerializedName("quantiteStock")
     private int quantiteStock;
     private int quantiteStockConseillee;
     private int quantiteACommander;

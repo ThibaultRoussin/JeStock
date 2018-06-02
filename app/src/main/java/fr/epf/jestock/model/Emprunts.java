@@ -1,25 +1,36 @@
 package fr.epf.jestock.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Utilisateur on 25/05/2018.
  */
 
 public class Emprunts {
 
+    @SerializedName("reference")
     private long Reference;
+    @SerializedName("nomRef")
+    private String nomRef;
     private String numeroEtudiant;
-    private String nom;
-    private String materielEmprunte;
+    @SerializedName("prenomEmprunteur")
+    private String prenomEmprunteur;
+    @SerializedName("nomEmprunteur")
+    private String nomEmprunteur;
+    @SerializedName("dateEmprunt")
     private String dateEmprunt;
+    @SerializedName("dateRendu")
     private String dateRetour;
 
     public Emprunts() {
     }
 
-    public Emprunts(String numeroEtudiant, String nom, String materielEmprunte, String dateEmprunt, String dateRetour) {
+    public Emprunts(long reference, String nomRef, String numeroEtudiant, String prenomEmprunteur, String nomEmprunteur, String dateEmprunt, String dateRetour) {
+        Reference = reference;
+        this.nomRef = nomRef;
         this.numeroEtudiant = numeroEtudiant;
-        this.nom = nom;
-        this.materielEmprunte = materielEmprunte;
+        this.prenomEmprunteur = prenomEmprunteur;
+        this.nomEmprunteur = nomEmprunteur;
         this.dateEmprunt = dateEmprunt;
         this.dateRetour = dateRetour;
     }
@@ -32,6 +43,14 @@ public class Emprunts {
         Reference = reference;
     }
 
+    public String getNomRef() {
+        return nomRef;
+    }
+
+    public void setNomRef(String nomRef) {
+        this.nomRef = nomRef;
+    }
+
     public String getNumeroEtudiant() {
         return numeroEtudiant;
     }
@@ -40,35 +59,35 @@ public class Emprunts {
         this.numeroEtudiant = numeroEtudiant;
     }
 
-    public String getNom() {
-        return nom;
+    public String getPrenomEmprunteur() {
+        return prenomEmprunteur;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setPrenomEmprunteur(String prenomEmprunteur) {
+        this.prenomEmprunteur = prenomEmprunteur;
     }
 
-    public String getMaterielEmprunte() {
-        return materielEmprunte;
+    public String getNomEmprunteur() {
+        return nomEmprunteur;
+    }
+
+    public void setNomEmprunteur(String nomEmprunteur) {
+        this.nomEmprunteur = nomEmprunteur;
     }
 
     public String getDateEmprunt() {
         return dateEmprunt;
     }
 
-    public String getDateRetour() {
-        return dateRetour;
-    }
-    public void setMaterielEmprunte(String materielEmprunte) {
-        this.materielEmprunte = materielEmprunte;
-    }
-
     public void setDateEmprunt(String dateEmprunt) {
         this.dateEmprunt = dateEmprunt;
+    }
+
+    public String getDateRetour() {
+        return dateRetour;
     }
 
     public void setDateRetour(String dateRetour) {
         this.dateRetour = dateRetour;
     }
-
 }

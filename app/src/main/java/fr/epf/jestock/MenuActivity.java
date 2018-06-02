@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,12 +19,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTouch;
-import fr.epf.jestock.data.MaterielDAO;
-import fr.epf.jestock.data.UserDAO;
-import fr.epf.jestock.data.UserDataBaseOpenHelper;
 import fr.epf.jestock.model.Compte;
-import fr.epf.jestock.model.ResultatModifQuantite;
-import fr.epf.jestock.model.ResultatRecherche;
+import fr.epf.jestock.model.ReferenceEmprunt;
+import fr.epf.jestock.model.SuccesRequete;
 import fr.epf.jestock.service.IAppelBDD;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -160,10 +156,6 @@ public class MenuActivity extends AppCompatActivity {
         modifierQuantite("Stock", "Ajouter",
                         Long.parseLong(reference.getText().toString()),
                         Integer.parseInt(quantite.getText().toString()));
-        /*MaterielDAO BDD = new MaterielDAO(this);
-        recupData = getIntent();
-        BDD.ajouterMateriel(recupData, Integer.parseInt(quantite.getText().toString()));*/
-
 
     }
 
@@ -173,21 +165,6 @@ public class MenuActivity extends AppCompatActivity {
         modifierQuantite("Stock", "Retirer",
                 Long.parseLong(reference.getText().toString()),
                 Integer.parseInt(quantite.getText().toString()));
-        /*MaterielDAO BDD = new MaterielDAO(this);
-        recupData = getIntent();
-        if (BDD.retirerMateriel(recupData, Integer.parseInt(quantite.getText().toString()))) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Matériel retiré!", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP | Gravity.CENTER, 125, 150);
-            toast.show();
-
-            retourScanner = new Intent(this, AccueilActivity.class);
-            startActivity(retourScanner);
-        }
-        else {
-            Toast toast = Toast.makeText(getApplicationContext(), "Pas assez de matériel en stock", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP | Gravity.CENTER, 125, 150);
-            toast.show();
-        }*/
     }
 
     @OnClick(R.id.bt_ajout_materiel_empruntable)
@@ -196,16 +173,6 @@ public class MenuActivity extends AppCompatActivity {
         modifierQuantite("Empruntable", "Ajouter",
                 Long.parseLong(reference.getText().toString()),
                 Integer.parseInt(quantite.getText().toString()));
-        /*MaterielDAO BDD = new MaterielDAO(this);
-        recupData = getIntent();
-        BDD.ajouterMaterielEmpruntable(recupData, Integer.parseInt(quantite.getText().toString()));
-
-        Toast toast = Toast.makeText(getApplicationContext(), "Matériel ajouté!", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
-        toast.show();
-
-        retourScanner = new Intent(this,AccueilActivity.class);
-        startActivity(retourScanner);*/
     }
 
     @OnClick(R.id.bt_retrait_materiel_empruntable)
@@ -214,38 +181,20 @@ public class MenuActivity extends AppCompatActivity {
         modifierQuantite("Empruntable", "Retirer",
                 Long.parseLong(reference.getText().toString()),
                 Integer.parseInt(quantite.getText().toString()));
-
-        /*MaterielDAO BDD = new MaterielDAO(this);
-        recupData = getIntent();
-
-        if(BDD.retirerMaterielEmpruntable(recupData, Integer.parseInt(quantite.getText().toString()))){
-            Toast toast = Toast.makeText(getApplicationContext(), "Matériel retiré!", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
-            toast.show();
-
-            retourScanner = new Intent(this,AccueilActivity.class);
-            startActivity(retourScanner);
-        }
-        else {
-            Toast toast = Toast.makeText(getApplicationContext(), "Pas assez de matériel en stock", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
-            toast.show();
-        }*/
-
     }
 
     @OnClick(R.id.bt_emprunt_materiel)
     public void emprunterMateriel(){
 
-        Intent intent = new Intent(this,ScannerNFCActivity.class);
+        Intent intent = new Intent(this,EmpruntsActivity.class);
+        ReferenceEmprunt.setReference(Long.parseLong(reference.getText().toString()));
+        ReferenceEmprunt.setNom(nom.getText().toString());
         startActivity(intent);
     }
 
     @OnClick(R.id.bt_rendu_materiel)
     public void rendreMateriel(){
 
-        Intent intent = new Intent(this,ScannerNFCActivity.class);
-        startActivity(intent);
     }
 
     public void modifierQuantite(String typeMateriel, final String typeModif, long ref, int quantite){
@@ -266,12 +215,12 @@ public class MenuActivity extends AppCompatActivity {
         IAppelBDD appelBDD = retrofit.create(IAppelBDD.class);
         Log.d("Campus", Compte.getCampus());
 
-        Call<ResultatModifQuantite> call = appelBDD.modifierQuantite(typeMateriel, typeModif, ref, quantite, Compte.getCampus());
+        Call<SuccesRequete> call = appelBDD.modifierQuantite(typeMateriel, typeModif, ref, quantite, Compte.getCampus());
 
-        call.enqueue(new Callback<ResultatModifQuantite>() {
+        call.enqueue(new Callback<SuccesRequete>() {
             @Override
-            public void onResponse(Call<ResultatModifQuantite> call, Response<ResultatModifQuantite> response) {
-                ResultatModifQuantite result = response.body();
+            public void onResponse(Call<SuccesRequete> call, Response<SuccesRequete> response) {
+                SuccesRequete result = response.body();
 
                 if (result.isSucces()){
                     if (typeModif.equals("Ajouter")){
@@ -297,7 +246,7 @@ public class MenuActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResultatModifQuantite> call, Throwable t) {
+            public void onFailure(Call<SuccesRequete> call, Throwable t) {
 
                 Toast toast = Toast.makeText(getApplicationContext(), "ERROR1", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);

@@ -6,15 +6,15 @@ import com.google.gson.annotations.SerializedName;
  * Created by Thibault on 01/06/2018.
  */
 
-public class ResultatModifQuantite {
+public class SuccesRequete {
 
     @SerializedName("succes")
     private boolean succes;
 
-    public ResultatModifQuantite() {
+    public SuccesRequete() {
     }
 
-    public ResultatModifQuantite(boolean succes) {
+    public SuccesRequete(boolean succes) {
         this.succes = succes;
     }
 

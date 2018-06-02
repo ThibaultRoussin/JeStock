@@ -1,5 +1,7 @@
 package fr.epf.jestock.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Thibault on 13/05/2018.
  */
@@ -7,10 +9,15 @@ package fr.epf.jestock.model;
 public class MaterielEmpruntable {
 
     private boolean succes;
+    @SerializedName("nom")
     private String nom;
+    @SerializedName("reference")
     private long Reference;
+    @SerializedName("quantiteTotale")
     private int quantiteTotale;
+    @SerializedName("quantiteEmpruntee")
     private int quantiteEmprunte;
+    @SerializedName("quantiteNonEmpruntee")
     private int quantiteNonEmprunte;
     private int quantiteTotaleConseillee;
     private int quantiteACommander;

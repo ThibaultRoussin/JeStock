@@ -10,29 +10,48 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
-public class ScannerNFCActivity extends AppCompatActivity {
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import fr.epf.jestock.adapter.EmpruntsEleveFragmentPagerAdapter;
+import fr.epf.jestock.model.ReferenceEmprunt;
+
+public class EmpruntsActivity extends AppCompatActivity {
 
     public static final String MIME_TEXT_PLAIN = "text/plain";
     public static final String TAG = "NfcDemo";
 
-    private TextView mTextView;
     private NfcAdapter mNfcAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scanner_nfc);
+        setContentView(R.layout.activity_emprunts);
 
-        mTextView = (TextView) findViewById(R.id.textView_explanation);
+        ButterKnife.bind(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_emprunts);
+        toolbar.setTitle("Emprunts");
+        setSupportActionBar(toolbar);
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_emprunts);
+        viewPager.setAdapter(new EmpruntsEleveFragmentPagerAdapter(getSupportFragmentManager()));
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs_emprunts);
+        tabLayout.setupWithViewPager(viewPager);
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
@@ -45,9 +64,9 @@ public class ScannerNFCActivity extends AppCompatActivity {
         }
 
         if (!mNfcAdapter.isEnabled()) {
-            mTextView.setText("NFC is disabled.");
+            Toast.makeText(this, "NFC is disable", Toast.LENGTH_LONG).show();
         } else {
-            mTextView.setText("Ca marche");
+            Toast.makeText(this, "NFC is enable", Toast.LENGTH_LONG).show();
         }
 
         handleIntent(getIntent());
@@ -95,7 +114,7 @@ public class ScannerNFCActivity extends AppCompatActivity {
             if (MIME_TEXT_PLAIN.equals(type)) {
 
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-                new NdefReaderTask().execute(tag);
+                new EmpruntsActivity.NdefReaderTask().execute(tag);
 
             } else {
                 Log.d(TAG, "Wrong mime type: " + type);
@@ -109,7 +128,7 @@ public class ScannerNFCActivity extends AppCompatActivity {
 
             for (String tech : techList) {
                 if (searchedTech.equals(tech)) {
-                    new NdefReaderTask().execute(tag);
+                    new EmpruntsActivity.NdefReaderTask().execute(tag);
                     break;
                 }
             }
@@ -215,9 +234,46 @@ public class ScannerNFCActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            if (result != null) {
-                mTextView.setText("Read content: " + result);
+
+            int temoinTriche = 0;
+            if (String.valueOf(ReferenceEmprunt.getReference()).equals("0")) {
+                temoinTriche = 1;
+                finish();
+            }
+            if (result != null && temoinTriche == 0) {
+                Intent intent2 = new Intent(getApplicationContext(), AfficherInfoCarteEtuActivity.class);
+                intent2.putExtra("NumEtu", result);
+                startActivity(intent2);
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch(item.getItemId()){
+            case R.id.action_affiche_listes:
+                Intent intent = new Intent(this, ListActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.action_notification:
+                Intent intent1 = new Intent(this, ListDeficitActivity.class);
+                startActivity(intent1);
+                return true;
+
+            case R.id.action_deconnexion :
+                Intent intent2 = new Intent(this, ConnexionActivity.class);
+                startActivity(intent2);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.barre_menu, menu);
+        return true;
     }
 }
