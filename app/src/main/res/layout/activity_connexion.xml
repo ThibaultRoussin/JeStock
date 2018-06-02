@@ -30,7 +30,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="15dp" />
+            android:layout_height="100dp" />
 
         <TextView
             android:id="@+id/textView"
@@ -62,25 +62,20 @@
             android:ems="10"
             android:inputType="textPassword" />
 
-        <Button
-            android:id="@+id/connexion"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Connexion"
-            android:background="#ca142d"
-            android:textColor="@android:color/white"/>
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <TextView
-            android:id="@+id/oubliMDP"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Mot de passe oublié?"
-            android:textColor="#ca142d"/>
+            <Button
+                android:id="@+id/connexion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ca142d"
+                android:text="Connexion"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
 
     </LinearLayout>
 

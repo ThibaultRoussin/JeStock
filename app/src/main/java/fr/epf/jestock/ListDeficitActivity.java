@@ -11,22 +11,22 @@ import android.view.MenuItem;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import fr.epf.jestock.adapter.ListFragmentPagerAdapter;
+import fr.epf.jestock.adapter.ListMaterielDeficitFragmentPagerAdapter;
 
 public class ListDeficitActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listdeficit2);
+        setContentView(R.layout.activity_listdeficit);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_deficit);
-        toolbar.setTitle("Déficit");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_listedeficit);
+        toolbar.setTitle("A commander");
         setSupportActionBar(toolbar);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpagerdeficit);
-        viewPager.setAdapter(new ListFragmentPagerAdapter(getSupportFragmentManager(), this));
+        viewPager.setAdapter(new ListMaterielDeficitFragmentPagerAdapter(getSupportFragmentManager(), this));
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabsdeficit);
@@ -63,9 +63,5 @@ public class ListDeficitActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.bt_retour_accueil2)
-    public void retourAccueil(){
-        Intent intent = new Intent(this,AccueilActivity.class);
-        startActivity(intent);
-    }
+
 }

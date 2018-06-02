@@ -69,9 +69,5 @@ public class ListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.bt_retour_accueil)
-    public void retourAccueil(){
-        Intent intent = new Intent(this,AccueilActivity.class);
-        startActivity(intent);
-    }
+
 }

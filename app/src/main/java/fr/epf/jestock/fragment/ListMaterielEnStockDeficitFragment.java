@@ -26,6 +26,9 @@ import static android.content.ContentValues.TAG;
 
 public class ListMaterielEnStockDeficitFragment extends ListFragment {
 
+    public ListMaterielEnStockDeficitFragment() {
+    }
+
     public interface OnMaterielSelectedListener {
         void onMaterielSelected(int id);
     }

@@ -49,12 +49,7 @@ public class ConnexionActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.oubliMDP)
-    public void oubliMDP(){
-        Toast toast = Toast.makeText(getApplicationContext(), "Work in progress!", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP|Gravity.LEFT, 125, 150);
-        toast.show();
-    }
+
 
 
 }

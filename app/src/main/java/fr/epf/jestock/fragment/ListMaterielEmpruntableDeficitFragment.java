@@ -19,6 +19,9 @@ import fr.epf.jestock.model.MaterielEmpruntable;
 
 public class ListMaterielEmpruntableDeficitFragment extends ListFragment{
 
+    public ListMaterielEmpruntableDeficitFragment() {
+    }
+
     public interface OnMaterielSelectedListener {
         void onMaterielSelected(int id);
     }

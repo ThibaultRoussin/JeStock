@@ -12,12 +12,12 @@ import fr.epf.jestock.fragment.EmpruntsProfesseurFragment;
  * Created by Utilisateur on 01/06/2018.
  */
 
-public class EmpruntsEleveFragmentPagerAdapter extends FragmentPagerAdapter{
+public class EmpruntsFragmentPagerAdapter extends FragmentPagerAdapter{
 
     private static int NUM_ITEMS = 2;
     private String tabTitles[] = new String[]{"Eleve","Professeur"};
 
-    public EmpruntsEleveFragmentPagerAdapter(FragmentManager fragmentManager, Context context) {
+    public EmpruntsFragmentPagerAdapter(FragmentManager fragmentManager, Context context) {
         super(fragmentManager);
     }
 

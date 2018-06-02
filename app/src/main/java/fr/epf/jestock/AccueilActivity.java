@@ -117,20 +117,17 @@ public class AccueilActivity extends AppCompatActivity {
 
         switch(item.getItemId()){
             case R.id.action_affiche_listes:
-                Intent intent = new Intent(this, EmpruntsActivity.class);
-                //ListActivity
+                Intent intent = new Intent(this, ListActivity.class);
                 startActivity(intent);
                 return true;
 
             case R.id.action_notification:
-                Intent intent1 = new Intent(this, RenduMaterielActivity.class);
-                //AfficheInfoCarteEtu_Activity
+                Intent intent1 = new Intent(this, ListDeficitActivity.class);
                 startActivity(intent1);
                 return true;
 
             case R.id.action_deconnexion :
                 Intent intent2 = new Intent(this, ConnexionActivity.class);
-                //SaisieManuelleCarteEtuActivity
                 startActivity(intent2);
                 return true;
         }

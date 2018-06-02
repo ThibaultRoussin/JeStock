@@ -28,18 +28,4 @@
         android:background="@android:color/white" />
 
 
-    <Button
-        android:id="@+id/bt_retour_accueil"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="#008080"
-        android:text="Accueil"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="92dp"
-        tools:layout_editor_absoluteY="424dp" />
-
-
 </LinearLayout>

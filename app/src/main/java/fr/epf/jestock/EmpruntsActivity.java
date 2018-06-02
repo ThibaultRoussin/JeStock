@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import butterknife.ButterKnife;
-import fr.epf.jestock.adapter.EmpruntsEleveFragmentPagerAdapter;
+import fr.epf.jestock.adapter.EmpruntsFragmentPagerAdapter;
 
 /**
  * Created by Utilisateur on 31/05/2018.
@@ -32,7 +32,7 @@ public class EmpruntsActivity extends AppCompatActivity{
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_emprunts);
-        viewPager.setAdapter(new EmpruntsEleveFragmentPagerAdapter(getSupportFragmentManager(), this));
+        viewPager.setAdapter(new EmpruntsFragmentPagerAdapter(getSupportFragmentManager(), this));
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs_emprunts);
