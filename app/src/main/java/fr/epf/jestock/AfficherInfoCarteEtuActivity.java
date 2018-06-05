@@ -1,5 +1,12 @@
 package fr.epf.jestock;
 
+/*
+    Nom ......... : AfficherInfoCarteEtuActivity.java
+    Role ........ : Activité permettant l'affichage des informations d'un élève de l'école
+    Auteur ...... : DSI_2
+
+*/
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,6 +47,7 @@ public class AfficherInfoCarteEtuActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        //Mise en place de la toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
         toolbar.setTitle("Vérification");
         setSupportActionBar(toolbar);
@@ -47,6 +55,7 @@ public class AfficherInfoCarteEtuActivity extends AppCompatActivity {
         recupEtudiant(intent);
     }
 
+    //Méthode d'envoie du numero étudiant vers le serveur web pour récupérer les informations étudiantes
     public void recupEtudiant(Intent intent){
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -71,11 +80,13 @@ public class AfficherInfoCarteEtuActivity extends AppCompatActivity {
             public void onResponse(Call<Etudiant> call, Response<Etudiant> response) {
                 Etudiant etudiant = response.body();
 
+                //Si étudiant présent dans la BDD, affichage de son nom et prénom
                 if(etudiant.isSucces()){
 
                     numEtu.setText(etudiant.getNumEtu());
                     nomPrenom.setText(etudiant.getNom() + " " + etudiant.getPrenom());
                 }
+                //Si non
                 else{
                     Toast.makeText(getApplicationContext(), "Numero étudiant incorrecte", Toast.LENGTH_SHORT).show();
                     finish();
@@ -96,6 +107,7 @@ public class AfficherInfoCarteEtuActivity extends AppCompatActivity {
         return true;
     }
 
+    //Bouton envoyant les données étudiantes vers le serveur web afin que l'emprunt soit ajouté à la BDD
     @OnClick(R.id.bt_suivant)
     public void suivant(){
 

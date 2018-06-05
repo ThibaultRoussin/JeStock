@@ -1,5 +1,12 @@
 package fr.epf.jestock;
 
+/*
+    Nom ......... : AccueilActivity.java
+    Role ........ : Activité controllant l'identification de code EAN13
+    Auteur ...... : DSI_2
+*/
+
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,17 +31,12 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import fr.epf.jestock.data.MaterielDAO;
 import fr.epf.jestock.model.Compte;
-import fr.epf.jestock.model.MaterielEmpruntable;
-import fr.epf.jestock.model.MaterielEnStock;
 import fr.epf.jestock.model.ResultatRecherche;
-import fr.epf.jestock.model.User;
 import fr.epf.jestock.service.IAppelBDD;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -54,23 +56,26 @@ public class AccueilActivity extends AppCompatActivity {
     private CameraSource cameraSource;
     final int RequestCameraPermissionID = 1000;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
         ButterKnife.bind(this);
 
+        //Mise en place de la toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_accueil);
         toolbar.setTitle("Scanner");
         setSupportActionBar(toolbar);
 
+        //Mise en place du détecteur de code EAN 13
         detector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.EAN_13).build();
         cameraSource = new CameraSource
                 .Builder(this, detector)
                 .setRequestedPreviewSize(640, 1200)
                 .build();
 
-        //Event
+        //Mise en place de la caméra
         scan.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
@@ -98,22 +103,26 @@ public class AccueilActivity extends AppCompatActivity {
             }
         });
 
+
         detector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {            }
 
+            //Détection d'un code EAN 13
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> code = detections.getDetectedItems();
                 if (code.size() != 0){
                     Log.d("BARCODE", code.valueAt(0).displayValue);
 
+                    //Méthode d'envoie du code détecté vers le serveur web pour vérification avec la base de données
                     rechercheRef(Long.parseLong(code.valueAt(0).displayValue));
                 }
             }
         });
     }
 
+    //Bouton de validation de la recherche manuelle
     @OnClick(R.id.bt_rechercher)
     public void rechercher(){
 
@@ -121,12 +130,14 @@ public class AccueilActivity extends AppCompatActivity {
 
     }
 
+    //Ajout du menu à la toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.barre_menu, menu);
         return true;
     }
 
+    //Event pour chaque icone de la toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
@@ -152,11 +163,13 @@ public class AccueilActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Empeche le retour en arrière apres avoir ajouter ou retirer un objet des stocks
     @Override
     public void onBackPressed(){
         return ;
     }
 
+    //Méthode d'envoie du code détecté vers le serveur web pour vérification avec la base de données
     public void rechercheRef(final long ref){
 
         final Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
@@ -169,7 +182,7 @@ public class AccueilActivity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.ip_connexion))
+                .baseUrl(getString(R.string.ip_connexion))       //Ip machine locale, a definir dans la ressource String ip_connexion
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
@@ -180,10 +193,12 @@ public class AccueilActivity extends AppCompatActivity {
         Call<ResultatRecherche> call = appelBDD.sendReferenceStock(ref);
 
         call.enqueue(new Callback<ResultatRecherche>() {
+            //Reponse recut
             @Override
             public void onResponse(Call<ResultatRecherche> call, Response<ResultatRecherche> response) {
                 ResultatRecherche result = response.body();
 
+                //Analyse du type de matériel détecté
                 if (result.getResultat().equals("Stock")){
                     intent.putExtra("Type","Stock");
                     intent.putExtra("Nom",result.getNom());

@@ -10,6 +10,12 @@ import fr.epf.jestock.fragment.ListEmpruntsFragment;
 import fr.epf.jestock.fragment.ListMaterielEmpruntableFragment;
 import fr.epf.jestock.fragment.ListMaterielEnStockFragment;
 
+/*
+    Nom ......... : ListDeficitFragmentPagerAdapter.java
+    Role ........ : Element permettant la gestion des onglets de navigation dans l'activité ListActivity.java
+    Auteur ...... : DSI_2
+*/
+
 public class ListMaterielFragmentPagerAdapter extends FragmentPagerAdapter {
     private static int NUM_ITEMS = 3;
     private String tabTitles[] = new String[]{"Matériel en stock","Matériel empruntable", "Emprunts"};
@@ -18,13 +24,13 @@ public class ListMaterielFragmentPagerAdapter extends FragmentPagerAdapter {
         super(fragmentManager);
     }
 
-    // Returns total number of pages
+    // Retourne le nombre d'onglet
     @Override
     public int getCount() {
         return NUM_ITEMS;
     }
 
-    // Returns the fragment to display for that page
+    // Retourne le fragment associé à la page
     @Override
     public Fragment getItem(int position) {
 
@@ -33,7 +39,7 @@ public class ListMaterielFragmentPagerAdapter extends FragmentPagerAdapter {
         else  return new ListEmpruntsFragment();
     }
 
-    // Returns the page title for the top indicator
+    // Returne le titre pour chaque page
     @Override
     public CharSequence getPageTitle(int position) {
 

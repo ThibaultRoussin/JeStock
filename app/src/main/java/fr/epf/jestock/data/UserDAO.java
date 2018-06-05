@@ -12,9 +12,11 @@ import java.util.List;
 import fr.epf.jestock.model.MaterielEnStock;
 import fr.epf.jestock.model.User;
 
-/**
- * Created by Thibault on 27/04/2018.
- */
+/*
+    Nom ......... : UserDAO.java
+    Role ........ : Classe contenant l'ensemble des méthodes d'acces à la table User de la BDD SQLite
+    Auteur ...... : DSI_2
+*/
 
 public class UserDAO {
 

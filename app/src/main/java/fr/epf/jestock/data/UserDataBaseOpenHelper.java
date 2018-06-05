@@ -5,9 +5,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-/**
- * Created by Thibault on 27/04/2018.
- */
+/*
+    Nom ......... : UserDataBaseOpenHelper.java
+    Role ........ : Classe permettant la création de la BDD interne SQLite
+    Auteur ...... : DSI_2
+
+*/
 
 public class UserDataBaseOpenHelper  extends SQLiteOpenHelper {
 
@@ -62,7 +65,7 @@ public class UserDataBaseOpenHelper  extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    // Creating Tables
+    // Creation des tables
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -94,7 +97,7 @@ public class UserDataBaseOpenHelper  extends SQLiteOpenHelper {
 
     }
 
-    // Upgrading database
+    // Amélioration des tables
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }

@@ -1,5 +1,12 @@
 package fr.epf.jestock;
 
+/*
+    Nom ......... : Connexion.java
+    Role ........ : Activité controllant la connexion utilisateur
+    Auteur ...... : DSI_2
+
+*/
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -26,9 +33,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ConnexionActivity extends AppCompatActivity {
 
-     static final String EMAIL = "EMAIL";
-     static final String MDP = "MDP";
-
     @BindView(R.id.userId) EditText id;
     @BindView(R.id.userMDP) EditText mdp;
 
@@ -38,6 +42,8 @@ public class ConnexionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_connexion);
         ButterKnife.bind(this);
 
+        // Si données utilisateurs dans le cache, enregistrement du campus et statut,
+        // et chargement de l'activité AccueilActivity.java
         SharedPreferences preference = getApplicationContext().getSharedPreferences("Pref",MODE_PRIVATE);
         if (!preference.getString("Email","null").equals("null")){
             User user = new User();
@@ -59,9 +65,11 @@ public class ConnexionActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    //Utilisateur clique sur le bouton de validation
     @OnClick(R.id.connexion)
     public void connexion(){
 
+        //Envoie de l'email et du mot de passe vers le serveur web
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -70,7 +78,7 @@ public class ConnexionActivity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.ip_connexion))
+                .baseUrl(getString(R.string.ip_connexion))  //Ip machine locale, a definir dans la ressource String ip_connexion
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
@@ -80,10 +88,14 @@ public class ConnexionActivity extends AppCompatActivity {
         Call<User> call = appelBDD.sendUser(id.getText().toString(),mdp.getText().toString());
 
         call.enqueue(new Callback<User>() {
+
+            //Reponse recut
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 User user = response.body();
 
+                //Si email et mot de passe corrects, enregistrement des données dans le cache
+                //enregistrement du campus et statut, et chargement de l'activité AccueilActivity.java
                 if (user.isSucces()){
 
                     SharedPreferences preference = getApplicationContext().getSharedPreferences("Pref",MODE_PRIVATE);
@@ -103,8 +115,10 @@ public class ConnexionActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(),AccueilActivity.class);
                     startActivity(intent);
                 }
+
+                //Si non
                 else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Email ou mot de passe incorrecte", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Email ou mot de passe incorrect", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
                     toast.show();
                 }
@@ -116,22 +130,7 @@ public class ConnexionActivity extends AppCompatActivity {
             }
         });
 
-        /*UserDAO BDD = new UserDAO(this);
-        List<User> userList = BDD.connexion();
-        Intent intent = new Intent(this,AccueilActivity.class);
 
-        for (User user : userList) {
-            if (id.getText().toString().equals(user.getLogin()) && mdp.getText().toString().equals(user.getPassword())){
-                Compte.setCampus("Sceaux");
-                Compte.setDroit(user.getDroit());
-                SharedPreferences preference = getApplicationContext().getSharedPreferences("Pref",MODE_PRIVATE);
-                preference.edit().putString("Id",user.getLogin()).apply();
-                preference.edit().putString("Mdp",user.getPassword()).apply();
-                preference.edit().putString("Droit",user.getDroit()).apply();
-                preference.edit().putString("Campus","Sceaux").apply();
-                startActivity(intent);
-            }
-        }*/
     }
 
     @OnClick(R.id.oubliMDP)
@@ -141,6 +140,7 @@ public class ConnexionActivity extends AppCompatActivity {
         toast.show();
     }
 
+    //Empeche le retour en arrière apres une deconnexion
     @Override
     public void onBackPressed(){
         return ;

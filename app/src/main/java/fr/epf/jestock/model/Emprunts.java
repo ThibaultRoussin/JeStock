@@ -2,9 +2,12 @@ package fr.epf.jestock.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Utilisateur on 25/05/2018.
- */
+/*
+    Nom ......... : Emprunts.java
+    Role ........ : Classe récupérant les données relatives aux emprunts retournées par le serveur au format JSON
+    Auteur ...... : DSI_2
+
+*/
 
 public class Emprunts {
 

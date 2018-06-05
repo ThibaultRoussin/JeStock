@@ -2,9 +2,12 @@ package fr.epf.jestock.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Thibault on 02/06/2018.
- */
+/*
+    Nom ......... : Etudiant.java
+    Role ........ : Classe récupérant les données relatives aux étudiants retournées par le serveur au format JSON
+    Auteur ...... : DSI_2
+
+*/
 
 public class Etudiant {
 

@@ -1,8 +1,11 @@
 package fr.epf.jestock.model;
 
-/**
- * Created by Thibault on 28/05/2018.
- */
+/*
+    Nom ......... : Compte.java
+    Role ........ : Classe contenat le statut et le campus affilié à l'utilisateur
+    Auteur ...... : DSI_2
+
+*/
 
 public class Compte {
     static private String statut;

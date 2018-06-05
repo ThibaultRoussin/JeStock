@@ -1,5 +1,12 @@
 package fr.epf.jestock;
 
+/*
+    Nom ......... : List.java
+    Role ........ : Activité affichant le contenu des listes de stocks.
+    Auteur ...... : DSI_2
+
+*/
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
@@ -23,10 +30,12 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         ButterKnife.bind(this);
 
+        //Mise en place de la toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_liste);
         toolbar.setTitle("Listes");
         setSupportActionBar(toolbar);
 
+        //Mise en place des onglets de navigation
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new ListMaterielFragmentPagerAdapter(getSupportFragmentManager(), this));
 
@@ -35,6 +44,7 @@ public class ListActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    //Ajout du menu à la toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.barre_menu, menu);
@@ -42,6 +52,7 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
+    //Event pour chaque icone de la toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
@@ -67,12 +78,14 @@ public class ListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Bouton de retour au scanner
     @OnClick(R.id.bt_retour_accueil)
     public void retourAccueil(){
         Intent intent = new Intent(this,AccueilActivity.class);
         startActivity(intent);
     }
 
+    //Retour arrière désactivé pour empécher de revenir à l'activité MenuActivity.java
     @Override
     public void onBackPressed(){
         return ;

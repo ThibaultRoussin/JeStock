@@ -12,9 +12,11 @@ import java.util.List;
 import fr.epf.jestock.R;
 import fr.epf.jestock.model.Emprunts;
 
-/**
- * Created by Utilisateur on 25/05/2018.
- */
+/*
+    Nom ......... : ListAdapterEmprunts.java
+    Role ........ : Element permettant l'affichage de la liste des emprunts
+    Auteur ...... : DSI_2
+*/
 
 public class ListAdapterEmprunts extends ArrayAdapter<Emprunts>{
 

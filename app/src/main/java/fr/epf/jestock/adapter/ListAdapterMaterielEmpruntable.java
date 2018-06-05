@@ -13,9 +13,11 @@ import fr.epf.jestock.R;
 import fr.epf.jestock.model.MaterielEmpruntable;
 
 
-/**
- * Created by Utilisateur on 23/05/2018.
- */
+/*
+    Nom ......... : ListAdapterMaterielEmpruntable.java
+    Role ........ : Element permettant l'affichage de la liste de materiel empruntable
+    Auteur ...... : DSI_2
+*/
 
 public class ListAdapterMaterielEmpruntable extends ArrayAdapter<MaterielEmpruntable>{
 

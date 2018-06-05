@@ -23,9 +23,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by Thibault on 02/06/2018.
- */
+/*
+    Nom ......... : ListStockDeficitFragment.java
+    Role ........ : Fragment permettant l'affichage de la liste de materiel en stock en deficit
+    Auteur ...... : DSI_2
+
+*/
 
 public class ListStockDeficitFragment extends ListFragment {
 
@@ -53,6 +56,7 @@ public class ListStockDeficitFragment extends ListFragment {
         chargerListe();
     }
 
+    //Chargement de la liste depuis le serveur WEB
     private void chargerListe() {
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();

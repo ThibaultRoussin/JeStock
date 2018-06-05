@@ -3,9 +3,12 @@ package fr.epf.jestock.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Thibault on 11/05/2018.
- */
+/*
+    Nom ......... : MaterielEnStock.java
+    Role ........ : Classe récupérant les données relatives aux materiels en stock retournées par le serveur au format JSON
+    Auteur ...... : DSI_2
+
+*/
 
 public class MaterielEnStock{
 

@@ -1,5 +1,12 @@
 package fr.epf.jestock;
 
+/*
+    Nom ......... : NouvelleRef.java
+    Role ........ : Activité permettant à l'utilisateur de saisir les informations d'un nouveau matériel à ajouter aux stocks
+    Auteur ...... : DSI_2
+
+*/
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -56,15 +63,18 @@ public class NouvelleRefActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nouvelle_ref);
         ButterKnife.bind(this);
 
+        //Recuperation de la référence matériel
         Intent intent = getIntent();
         ref.setText(String.valueOf(intent.getLongExtra("Reference",0)));
 
+        //Mise en place de la toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_newRef);
         toolbar.setTitle("Nouveau");
         setSupportActionBar(toolbar);
 
     }
 
+    //Retirer 1 à la quantité de matériel ajoutée
     @OnTouch(R.id.retirer1Ajout)
     public boolean retirer1Ajout(){
         int quantiteActuelle = Integer.parseInt(quantiteAdd.getText().toString());
@@ -74,6 +84,7 @@ public class NouvelleRefActivity extends AppCompatActivity {
         return true;
     }
 
+    //Ajouter 1 à la quantité de matériel ajoutée
     @OnTouch(R.id.ajouter1Ajout)
     public boolean ajouter1Ajout(){
         int quantiteActuelle = Integer.parseInt(quantiteAdd.getText().toString());
@@ -82,6 +93,7 @@ public class NouvelleRefActivity extends AppCompatActivity {
         return true;
     }
 
+    //Retirer 1 à la quantité de matériel conseillée
     @OnTouch(R.id.retirer1Conseil)
     public boolean retirer1Conseil(){
         int quantiteActuelle = Integer.parseInt(quantiteConseil.getText().toString());
@@ -91,6 +103,7 @@ public class NouvelleRefActivity extends AppCompatActivity {
         return true;
     }
 
+    //Ajouter à la quantité de matériel Conseillée
     @OnTouch(R.id.ajouter1Conseil)
     public boolean ajouter1Conseil(){
         int quantiteActuelle = Integer.parseInt(quantiteConseil.getText().toString());
@@ -99,6 +112,7 @@ public class NouvelleRefActivity extends AppCompatActivity {
         return true;
     }
 
+    //Validation et envoie des informations saisies vers le serveur web
     @OnClick(R.id.bt_newRefOk)
     public void validerNewRef(){
 
@@ -145,6 +159,7 @@ public class NouvelleRefActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

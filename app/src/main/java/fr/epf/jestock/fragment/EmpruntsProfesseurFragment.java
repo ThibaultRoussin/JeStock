@@ -1,5 +1,12 @@
 package fr.epf.jestock.fragment;
 
+/*
+    Nom ......... : EmpruntsProfesseurFragment.java
+    Role ........ : Fragment permettant le traitement des informations professeur saisies
+    Auteur ...... : DSI_2
+
+*/
+
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -50,6 +57,7 @@ public class EmpruntsProfesseurFragment extends Fragment {
         return view;
     }
 
+    //Envoi sur le serveur web des informations saisies par l'utilisateur pour effectuer un emprunt
     @OnClick(R.id.bt_valider)
     public void suivant(){
 

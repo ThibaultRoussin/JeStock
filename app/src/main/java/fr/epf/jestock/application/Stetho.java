@@ -5,9 +5,13 @@ import android.app.Application;
 import fr.epf.jestock.data.MaterielDAO;
 import fr.epf.jestock.data.UserDAO;
 
-/**
- * Created by Thibault on 27/04/2018.
- */
+
+/*
+    Nom ......... : Stetho.java
+    Role ........ : Application permettant la visualisation de la base de données SQlite
+    Auteur ...... : DSI_2
+
+*/
 
 public class Stetho extends Application {
 

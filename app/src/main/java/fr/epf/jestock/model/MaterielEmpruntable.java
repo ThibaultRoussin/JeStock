@@ -2,9 +2,12 @@ package fr.epf.jestock.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Thibault on 13/05/2018.
- */
+/*
+    Nom ......... : MaterielEmpruntable.java
+    Role ........ : Classe récupérant les données relatives aux matériels empruntables retournées par le serveur au format JSON
+    Auteur ...... : DSI_2
+
+*/
 
 public class MaterielEmpruntable {
 

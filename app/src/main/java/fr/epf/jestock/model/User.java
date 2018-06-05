@@ -2,9 +2,12 @@ package fr.epf.jestock.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Thibault on 27/04/2018.
- */
+/*
+    Nom ......... : User.java
+    Role ........ : Classe récupérant les données relatives aux utilisateurs retournées par le serveur au format JSON
+    Auteur ...... : DSI_2
+
+*/
 
 public class User {
 

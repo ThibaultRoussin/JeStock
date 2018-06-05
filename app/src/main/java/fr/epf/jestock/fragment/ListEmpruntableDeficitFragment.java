@@ -1,5 +1,12 @@
 package fr.epf.jestock.fragment;
 
+/*
+    Nom ......... : ListEmpruntableDeficitFragment.java
+    Role ........ : Fragment permettant l'affichage de la liste de matériel empruntable en deficit
+    Auteur ...... : DSI_2
+
+*/
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -22,10 +29,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-/**
- * Created by Thibault on 02/06/2018.
- */
 
 public class ListEmpruntableDeficitFragment extends ListFragment {
 
@@ -55,6 +58,7 @@ public class ListEmpruntableDeficitFragment extends ListFragment {
         chargerListe();
     }
 
+    //Chargement de la liste depuis le serveur WEB
     private void chargerListe() {
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();

@@ -15,9 +15,11 @@ import fr.epf.jestock.model.Emprunts;
 import fr.epf.jestock.model.MaterielEmpruntable;
 import fr.epf.jestock.model.MaterielEnStock;
 
-/**
- * Created by Thibault on 11/05/2018.
- */
+/*
+    Nom ......... : MaterielDAO.java
+    Role ........ : Classe contenant l'ensemble des méthodes d'acces aux tables de matériel de la BDD SQLite
+    Auteur ...... : DSI_2
+*/
 
 public class MaterielDAO {
 

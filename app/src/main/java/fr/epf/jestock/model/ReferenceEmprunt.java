@@ -1,8 +1,11 @@
 package fr.epf.jestock.model;
 
-/**
- * Created by Thibault on 02/06/2018.
- */
+/*
+    Nom ......... : ReferenceEmprunt.java
+    Role ........ : Classe contenant la référence et le nom du matériel scanné.
+    Auteur ...... : DSI_2
+
+*/
 
 public class ReferenceEmprunt {
 

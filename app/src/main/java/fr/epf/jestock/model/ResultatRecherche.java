@@ -2,9 +2,13 @@ package fr.epf.jestock.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Thibault on 31/05/2018.
- */
+/*
+    Nom ......... : ResultatRecherche.java
+    Role ........ : Classe récupérant les données relatives à l'identification d'un matériel par son code EAN
+                    retournées par le serveur au format JSON
+    Auteur ...... : DSI_2
+
+*/
 
 public class ResultatRecherche {
 

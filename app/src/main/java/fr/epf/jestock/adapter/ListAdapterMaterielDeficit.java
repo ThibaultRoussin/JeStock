@@ -13,9 +13,11 @@ import fr.epf.jestock.R;
 import fr.epf.jestock.model.MaterielDeficit;
 import fr.epf.jestock.model.MaterielEmpruntable;
 
-/**
- * Created by Utilisateur on 25/05/2018.
- */
+/*
+    Nom ......... : ListAdapterMaterielDeficit.java
+    Role ........ : Element permettant l'affichage de la liste de matériel en déficit
+    Auteur ...... : DSI_2
+*/
 
 public class ListAdapterMaterielDeficit extends ArrayAdapter<MaterielDeficit> {
 

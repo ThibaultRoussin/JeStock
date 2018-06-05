@@ -26,9 +26,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by Utilisateur on 25/05/2018.
- */
+/*
+    Nom ......... : ListEmprunsFragment.java
+    Role ........ : Fragment permettant l'affichage de la liste des empunts
+    Auteur ...... : DSI_2
+
+*/
 
 public class ListEmpruntsFragment extends ListFragment {
 
@@ -56,6 +59,7 @@ public class ListEmpruntsFragment extends ListFragment {
         chargerListe();
     }
 
+    //Chargement de la liste depuis le serveur WEB
     private void chargerListe() {
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();

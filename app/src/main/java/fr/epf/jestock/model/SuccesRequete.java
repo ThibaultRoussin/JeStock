@@ -2,9 +2,12 @@ package fr.epf.jestock.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Thibault on 01/06/2018.
- */
+/*
+    Nom ......... : SuccesRequete.java
+    Role ........ : Classe récupérant le succes d'une opération sur la BDD retournées par le serveur au format JSON
+    Auteur ...... : DSI_2
+
+*/
 
 public class SuccesRequete {
 

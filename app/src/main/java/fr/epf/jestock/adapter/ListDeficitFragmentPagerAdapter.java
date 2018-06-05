@@ -7,9 +7,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import fr.epf.jestock.fragment.ListEmpruntableDeficitFragment;
 import fr.epf.jestock.fragment.ListStockDeficitFragment;
 
-/**
- * Created by Thibault on 02/06/2018.
- */
+/*
+    Nom ......... : ListDeficitFragmentPagerAdapter.java
+    Role ........ : Element permettant la gestion des onglets de navigation dans l'activité ListDeficitActivity.java
+    Auteur ...... : DSI_2
+*/
 
 public class ListDeficitFragmentPagerAdapter extends FragmentPagerAdapter {
 
@@ -20,6 +22,7 @@ public class ListDeficitFragmentPagerAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
+    // Retourne le fragment associé à la page
     @Override
     public Fragment getItem(int position) {
 
@@ -27,11 +30,13 @@ public class ListDeficitFragmentPagerAdapter extends FragmentPagerAdapter {
         else  return new ListEmpruntableDeficitFragment();
     }
 
+    // Retourne le nombre d'onglet
     @Override
     public int getCount() {
         return NUM_ITEMS;
     }
 
+    // Returne le titre pour chaque page
     @Override
     public CharSequence getPageTitle(int position) {
 

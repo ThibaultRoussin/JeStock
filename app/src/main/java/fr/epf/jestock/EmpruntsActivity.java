@@ -1,5 +1,12 @@
 package fr.epf.jestock;
 
+/*
+    Nom ......... : AccueilActivity.java
+    Role ........ : Activité controllant l'identification d'un emprunteur (élève ou professeur)
+    Auteur ...... : DSI_2
+
+*/
+
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -43,16 +50,19 @@ public class EmpruntsActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        //Mise en place de la toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_emprunts);
         toolbar.setTitle("Emprunt");
         setSupportActionBar(toolbar);
 
+        //Mise en place des onglets de navigation
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_emprunts);
         viewPager.setAdapter(new EmpruntsEleveFragmentPagerAdapter(getSupportFragmentManager()));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs_emprunts);
         tabLayout.setupWithViewPager(viewPager);
 
+        //Mise en place de la détection NFC
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         if (mNfcAdapter == null) {
@@ -75,19 +85,11 @@ public class EmpruntsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        /**
-         * It's important, that the activity is in the foreground (resumed). Otherwise
-         * an IllegalStateException is thrown.
-         */
         setupForegroundDispatch(this, mNfcAdapter);
     }
 
     @Override
     protected void onPause() {
-        /**
-         * Call this before onPause, otherwise an IllegalArgumentException is thrown as well.
-         */
         stopForegroundDispatch(this, mNfcAdapter);
 
         super.onPause();
@@ -95,18 +97,10 @@ public class EmpruntsActivity extends AppCompatActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-        /**
-         * This method gets called, when a new Intent gets associated with the current activity instance.
-         * Instead of creating a new activity, onNewIntent will be called. For more information have a look
-         * at the documentation.
-         *
-         * In our case this method gets called, when the user attaches a Tag to the device.
-         */
         handleIntent(intent);
     }
 
     private void handleIntent(Intent intent) {
-        // TODO: handle Intent
         String action = intent.getAction();
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
 
@@ -137,10 +131,6 @@ public class EmpruntsActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * @param activity The corresponding {@link Activity} requesting the foreground dispatch.
-     * @param adapter The {@link NfcAdapter} used for the foreground dispatch.
-     */
     public static void setupForegroundDispatch(final Activity activity, NfcAdapter adapter) {
         final Intent intent = new Intent(activity.getApplicationContext(), activity.getClass());
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -150,7 +140,6 @@ public class EmpruntsActivity extends AppCompatActivity {
         IntentFilter[] filters = new IntentFilter[1];
         String[][] techList = new String[][]{};
 
-        // Notice that this is the same filter as in our manifest.
         filters[0] = new IntentFilter();
         filters[0].addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
         filters[0].addCategory(Intent.CATEGORY_DEFAULT);
@@ -163,21 +152,11 @@ public class EmpruntsActivity extends AppCompatActivity {
         adapter.enableForegroundDispatch(activity, pendingIntent, filters, techList);
     }
 
-    /**
-     @param activity The corresponding {@link "BaseActivity"} requesting to stop the foreground dispatch.
-     @param adapter The {@link NfcAdapter} used for the foreground dispatch.
-     */
     public static void stopForegroundDispatch(final Activity activity, NfcAdapter adapter) {
         adapter.disableForegroundDispatch(activity);
 
     }
 
-    /**
-     * Background task for reading the data. Do not block the UI thread while reading.
-     *
-     * @author Ralf Wondratschek
-     *
-     */
     private class NdefReaderTask extends AsyncTask<Tag, Void, String> {
 
         @Override
@@ -186,7 +165,6 @@ public class EmpruntsActivity extends AppCompatActivity {
 
             Ndef ndef = Ndef.get(tag);
             if (ndef == null) {
-                // NDEF is not supported by this Tag.
                 return null;
             }
 
@@ -207,31 +185,17 @@ public class EmpruntsActivity extends AppCompatActivity {
         }
 
         private String readText(NdefRecord record) throws UnsupportedEncodingException {
-        /*
-         * See NFC forum specification for "Text Record Type Definition" at 3.2.1
-         *
-         * http://www.nfc-forum.org/specs/
-         *
-         * bit_7 defines encoding
-         * bit_6 reserved for future use, must be 0
-         * bit_5..0 length of IANA language code
-         */
 
             byte[] payload = record.getPayload();
 
-            // Get the Text Encoding
             String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
 
-            // Get the Language Code
             int languageCodeLength = payload[0] & 0063;
 
-            // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
-            // e.g. "en"
-
-            // Get the Text
             return new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
         }
 
+        //Contenu de la puce NFC récupéré
         @Override
         protected void onPostExecute(String result) {
 

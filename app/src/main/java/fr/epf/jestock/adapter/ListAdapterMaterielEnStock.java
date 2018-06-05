@@ -17,9 +17,11 @@ import butterknife.BindView;
 import fr.epf.jestock.R;
 import fr.epf.jestock.model.MaterielEnStock;
 
-/**
- * Created by Utilisateur on 22/05/2018.
- */
+/*
+    Nom ......... : ListAdapterMaterielEnStock.java
+    Role ........ : Element permettant l'affichage de la liste de materiel en stock
+    Auteur ...... : DSI_2
+*/
 
 public class ListAdapterMaterielEnStock extends ArrayAdapter<MaterielEnStock>   {
 

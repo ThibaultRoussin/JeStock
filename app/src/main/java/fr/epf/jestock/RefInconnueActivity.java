@@ -1,5 +1,12 @@
 package fr.epf.jestock;
 
+/*
+    Nom ......... : RefInconnue.java
+    Role ........ : Activité informant l'utilisateur de la détection d'un nouveau matériel
+    Auteur ...... : DSI_2
+
+*/
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -32,11 +39,13 @@ public class RefInconnueActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        //Si admin, changement du text a à afficher
         if (Compte.getStatut().equals("admin")){
             textCompte.setText("Voulez vous ajouter cette nouvelle référence '" +
                                 intent.getLongExtra("Reference", 0) +
                                 "' aux stocks?");
         }
+        //Si membre, changement du text a à afficher
         if (Compte.getStatut().equals("membre")){
             textCompte.setText("Si vous souhaitez ajouter cette nouvelle référence '" +
                     intent.getLongExtra("Reference",0) +
@@ -44,24 +53,29 @@ public class RefInconnueActivity extends AppCompatActivity {
             retry.setText("SE CONNECTER EN TANT QU'ADMINISTRATEUR");
         }
 
+        //Mise en place de la toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_refInconnue);
         toolbar.setTitle("Inconnue");
         setSupportActionBar(toolbar);
     }
 
+    //Bouton permettant de retourner au scanner
     @OnClick(R.id.bt_retry)
     public void retry(){
         finish();
     }
 
+
     @OnClick(R.id.bt_newRef)
     public void newRef(){
+        //Si membre, retour à la page de connexion
         if(Compte.getStatut().equals("membre")){
             SharedPreferences preferences = getApplicationContext().getSharedPreferences("Pref",MODE_PRIVATE);
             preferences.edit().clear().apply();
             Intent intent2 = new Intent(this, ConnexionActivity.class);
             startActivity(intent2);
         }
+        // Si admin, lancement de l'activité RefInconnueActivity.java
         else {
             Intent intent = getIntent();
             long ref = intent.getLongExtra("Reference",0);
@@ -72,18 +86,21 @@ public class RefInconnueActivity extends AppCompatActivity {
         }
     }
 
+    //Si retour en arrière, destruction de l'activité
     @Override
     protected void onPause() {
         super.onPause();
         finish();
     }
 
+    //Ajout du menu à la toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.barre_menu, menu);
         return true;
     }
 
+    //Event pour chaque icone de la toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 

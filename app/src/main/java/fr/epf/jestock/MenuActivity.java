@@ -1,5 +1,12 @@
 package fr.epf.jestock;
 
+/*
+    Nom ......... : Menu.java
+    Role ........ : Activité affichant les possibles actions utilisateurs après identification d'un matériel
+    Auteur ...... : DSI_2
+
+*/
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -50,6 +57,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         ButterKnife.bind(this);
 
+        //Mise en place de la toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
@@ -62,6 +70,7 @@ public class MenuActivity extends AppCompatActivity {
         toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
         toast.show();
 
+        //Recuperation de la reference et du nom du materiel scanner
         recupData = getIntent();
 
         long ref = recupData.getLongExtra("Reference",0);
@@ -72,6 +81,7 @@ public class MenuActivity extends AppCompatActivity {
 
         Log.d("Type", recupData.getStringExtra("Type"));
 
+        //Affichade des boutons concernés
         if (recupData.getStringExtra("Type").equals("Stock")){
             hide1 = (Button)findViewById(R.id.bt_ajout_materiel_empruntable);
             hide2 = (Button)findViewById(R.id.bt_retrait_materiel_empruntable);
@@ -90,6 +100,7 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
+    //Réduction de la quantité par 1
     @OnTouch(R.id.retirer1)
     public boolean retirer1(){
         int quantiteActuelle = Integer.parseInt(quantite.getText().toString());
@@ -99,6 +110,7 @@ public class MenuActivity extends AppCompatActivity {
         return true;
     }
 
+    //Augmentation de la quantité par 1
     @OnTouch(R.id.ajouter1)
     public boolean ajouter1(){
         int quantiteActuelle = Integer.parseInt(quantite.getText().toString());
@@ -107,12 +119,14 @@ public class MenuActivity extends AppCompatActivity {
         return true;
     }
 
+    //Ajout du menu à la toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.barre_menu, menu);
         return true;
     }
 
+    //Event pour chaque icone de la toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
@@ -138,6 +152,7 @@ public class MenuActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Méthode d'ajout du matériel au stock
     @OnClick(R.id.bt_ajout_materiel_stock)
     public void ajouterMateriel(){
 
@@ -147,6 +162,7 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
+    //Méthode de retrait du matériel du stock
     @OnClick(R.id.bt_retrait_materiel_stock)
     public void retirerMateriel(){
 
@@ -155,6 +171,7 @@ public class MenuActivity extends AppCompatActivity {
                 Integer.parseInt(quantite.getText().toString()));
     }
 
+    //Méthode d'ajout du matériel au stock empruntable
     @OnClick(R.id.bt_ajout_materiel_empruntable)
     public void ajouterMaterielEmpruntable(){
 
@@ -163,6 +180,7 @@ public class MenuActivity extends AppCompatActivity {
                 Integer.parseInt(quantite.getText().toString()));
     }
 
+    //Méthode de retrait du matériel au stock empruntable
     @OnClick(R.id.bt_retrait_materiel_empruntable)
     public void retirerMaterielEmpruntable(){
 
@@ -171,6 +189,7 @@ public class MenuActivity extends AppCompatActivity {
                 Integer.parseInt(quantite.getText().toString()));
     }
 
+    //Méthode d'emprunt d'un matériel
     @OnClick(R.id.bt_emprunt_materiel)
     public void emprunterMateriel(){
 
@@ -180,11 +199,13 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //Méthode de rendu d'un matériel
     @OnClick(R.id.bt_rendu_materiel)
     public void rendreMateriel(){
 
     }
 
+    //Méthode d'envoie des données du matériel vers le erveur web
     public void modifierQuantite(String typeMateriel, final String typeModif, long ref, int quantite){
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -210,6 +231,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onResponse(Call<SuccesRequete> call, Response<SuccesRequete> response) {
                 SuccesRequete result = response.body();
 
+                //Si succes, retour à l'activité ListActivity.java
                 if (result.isSucces()){
                     if (typeModif.equals("Ajouter")){
                         Toast toast = Toast.makeText(getApplicationContext(), "Matériel ajouté!", Toast.LENGTH_SHORT);
@@ -225,6 +247,8 @@ public class MenuActivity extends AppCompatActivity {
                     startActivity(retourListe);
                     finish();
                 }
+
+                //Si non
                 else{
                     Toast toast = Toast.makeText(getApplicationContext(), "Pas assez de matériel en stock", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
