@@ -92,7 +92,7 @@ public class ListStockDeficitFragment extends ListFragment {
                 ListAdapterMaterielDeficit adapter = new ListAdapterMaterielDeficit(getActivity(), listDeficit);
                 setListAdapter(adapter);
 
-                Toast.makeText(getContext(), "Aucun matériel empruntable en déficit", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Aucun matériel en stock en déficit", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -67,7 +67,7 @@ public class MenuActivity extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
-        toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
+        toast.setGravity(Gravity.TOP, 125, 150);
         toast.show();
 
         //Recuperation de la reference et du nom du materiel scanner
@@ -251,7 +251,7 @@ public class MenuActivity extends AppCompatActivity {
                 //Si non
                 else{
                     Toast toast = Toast.makeText(getApplicationContext(), "Pas assez de matériel en stock", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
+                    toast.setGravity(Gravity.TOP, 125, 150);
                     toast.show();
                 }
 

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">JeStock</string>
 
-    <string name="ip_connexion">http://192.168.1.72/</string>
+    <string name="ip_connexion">http://jestock.000webhostapp.com/</string>
     <string name="resultat_recherche">rien</string>
 
     <!-- TODO: Remove or change this placeholder text -->

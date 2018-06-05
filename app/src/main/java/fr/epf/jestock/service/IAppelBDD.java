@@ -26,20 +26,20 @@ public interface IAppelBDD {
 
     //Requete permettant la connexion
     @FormUrlEncoded
-    @POST("/JeStock/connection.php")
+    @POST("/android/connection.php")
     Call<User> sendUser(
             @Field("email") String username,
             @Field("mdp") String password);
 
     //Requete permettant l'envoie du code EAN 13 scanner
     @FormUrlEncoded
-    @POST("/JeStock/refStock.php")
+    @POST("/android/refStock.php")
     Call<ResultatRecherche> sendReferenceStock(
             @Field("referenceStock") long reference);
 
     //Requete permettant la modification des quantités de stock
     @FormUrlEncoded
-    @POST("/JeStock/modifQuantite.php")
+    @POST("/android/modifQuantite.php")
     Call<SuccesRequete> modifierQuantite(
             @Field("typeMateriel") String typeMateriel,
             @Field("typeModification") String typeModification,
@@ -49,13 +49,13 @@ public interface IAppelBDD {
 
     //Requete permettant de récupérer les informations d'un étudiant à partir de son numero
     @FormUrlEncoded
-    @POST("/JeStock/recupEtudiant.php")
+    @POST("/android/recupEtudiant.php")
     Call<Etudiant> recupEtudiant(
             @Field("numEtu") String numEtu);
 
     //Requete permettant l'emprunt d'un matériel
     @FormUrlEncoded
-    @POST("/JeStock/emprunt.php")
+    @POST("/android/emprunt.php")
     Call<Void> emprunter(
             @Field("type") String type,
             @Field("ref") long ref,
@@ -66,32 +66,32 @@ public interface IAppelBDD {
 
     //Requete permettant l'affichage de la liste de matériel du stock
     @FormUrlEncoded
-    @POST("/JeStock/affichageListeStock.php")
+    @POST("/android/affichageListeStock.php")
     Call<List<MaterielEnStock>> affichageListeStock(
             @Field("campus") String campus);
 
     //Requete permettant l'affichade de la liste de matériel empruntable
     @FormUrlEncoded
-    @POST("/JeStock/affichageListeEmpruntable.php")
+    @POST("/android/affichageListeEmpruntable.php")
     Call<List<MaterielEmpruntable>> affichageListeEmpruntable(
             @Field("campus") String campus);
 
     //Requete permettant l'affichage de la liste des emprunts
     @FormUrlEncoded
-    @POST("/JeStock/affichageListeEmprunt.php")
+    @POST("/android/affichageListeEmprunt.php")
     Call<List<Emprunts>> affichageListeEmprunt(
             @Field("campus") String campus);
 
     //Requete permettant l'affichage des listes de matériel à commander
     @FormUrlEncoded
-    @POST("/JeStock/affichageListeDeficit.php")
+    @POST("/android/affichageListeDeficit.php")
     Call<List<MaterielDeficit>> affichageListeDeficit(
             @Field("type") String type,
             @Field("campus") String campus);
 
     //Requete permettant d'ajouter une nouvelle référence aux stocks
     @FormUrlEncoded
-    @POST("/JeStock/nouvelleRef.php")
+    @POST("/android/nouvelleRef.php")
     Call<Void> nouvelleRef(
             @Field("type") String type,
             @Field("ref") long ref,

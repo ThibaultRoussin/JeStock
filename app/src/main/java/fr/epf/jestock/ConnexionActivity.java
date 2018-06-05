@@ -106,7 +106,7 @@ public class ConnexionActivity extends AppCompatActivity {
                     preference.edit().putString("Campus",user.getCampus()).apply();
 
                     Toast toast = Toast.makeText(getApplicationContext(), "Bienvenue " + user.getFirstName() + " " +user.getLastName(), Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
+                    toast.setGravity(Gravity.TOP, 125, 150);
                     toast.show();
 
                     Compte.setStatut(user.getStatut());
@@ -119,7 +119,7 @@ public class ConnexionActivity extends AppCompatActivity {
                 //Si non
                 else {
                     Toast toast = Toast.makeText(getApplicationContext(), "Email ou mot de passe incorrect", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.TOP|Gravity.CENTER, 125, 150);
+                    toast.setGravity(Gravity.TOP, 125, 150);
                     toast.show();
                 }
             }
