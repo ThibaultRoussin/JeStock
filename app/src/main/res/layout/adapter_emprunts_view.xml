@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="70dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -32,6 +32,11 @@
                 android:textAlignment="center"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/numero_etudiant__textview"
@@ -59,6 +64,11 @@
                 android:textSize="14sp"
                 android:textStyle="italic" />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_weight="1" />
+
             <TextView
                 android:id="@+id/ref3_textview"
                 android:layout_width="match_parent"
@@ -72,20 +82,22 @@
 
         <LinearLayout
             android:layout_width="30dp"
-            android:layout_height="50dp"
+            android:layout_height="75dp"
             android:layout_weight="0"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="26dp"
                 app:srcCompat="@drawable/sortie" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="18dp" />
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="26dp"
                 app:srcCompat="@drawable/entree" />
 
         </LinearLayout>

@@ -74,18 +74,6 @@
             android:background="#ca142d"
             android:textColor="@android:color/white"/>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <TextView
-            android:id="@+id/oubliMDP"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Mot de passe oublié?"
-            android:textColor="#ca142d"/>
-
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -10,6 +10,7 @@ package fr.epf.jestock;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.widget.Space;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -47,9 +48,11 @@ public class MenuActivity extends AppCompatActivity {
     @BindView(R.id.text_quantity)
     TextView quantite;
 
+    private boolean boutonRelache = true;
 
     private Button hide1,hide2,hide3,hide4;
     private Intent recupData, retourListe;
+    private Space space1,space2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,6 @@ public class MenuActivity extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
-        toast.setGravity(Gravity.TOP, 125, 150);
         toast.show();
 
         //Recuperation de la reference et du nom du materiel scanner
@@ -87,35 +89,49 @@ public class MenuActivity extends AppCompatActivity {
             hide2 = (Button)findViewById(R.id.bt_retrait_materiel_empruntable);
             hide3 = (Button)findViewById(R.id.bt_emprunt_materiel);
             hide4 = (Button)findViewById(R.id.bt_rendu_materiel);
-            hide1.setVisibility(View.INVISIBLE);
-            hide2.setVisibility(View.INVISIBLE);
-            hide3.setVisibility(View.INVISIBLE);
-            hide4.setVisibility(View.INVISIBLE);
+            hide1.setVisibility(View.GONE);
+            hide2.setVisibility(View.GONE);
+            hide3.setVisibility(View.GONE);
+            hide4.setVisibility(View.GONE);
         }
         if (recupData.getStringExtra("Type").equals("Empruntable")){
             hide1 = (Button)findViewById(R.id.bt_ajout_materiel_stock);
             hide2 = (Button)findViewById(R.id.bt_retrait_materiel_stock);
-            hide1.setVisibility(View.INVISIBLE);
-            hide2.setVisibility(View.INVISIBLE);
+            space1 = (Space)findViewById(R.id.spaceAjout);
+            space2 = (Space)findViewById(R.id.spaceRetrait);
+            hide1.setVisibility(View.GONE);
+            hide2.setVisibility(View.GONE);
+            space1.setVisibility(View.GONE);
+            space2.setVisibility(View.GONE);
         }
     }
 
     //Réduction de la quantité par 1
     @OnTouch(R.id.retirer1)
     public boolean retirer1(){
-        int quantiteActuelle = Integer.parseInt(quantite.getText().toString());
-        int quantiteFuture = quantiteActuelle - 1;
-        if (quantiteFuture > 1) quantite.setText(String.valueOf(quantiteFuture));
-        else quantite.setText("1");
+        if (boutonRelache) {
+            int quantiteActuelle = Integer.parseInt(quantite.getText().toString());
+            int quantiteFuture = quantiteActuelle - 1;
+            if (quantiteFuture > 1) quantite.setText(String.valueOf(quantiteFuture));
+            else quantite.setText("1");
+            boutonRelache = false;
+            return true;
+        }
+        else boutonRelache = true;
         return true;
     }
 
     //Augmentation de la quantité par 1
     @OnTouch(R.id.ajouter1)
     public boolean ajouter1(){
-        int quantiteActuelle = Integer.parseInt(quantite.getText().toString());
-        int quantiteFuture = quantiteActuelle +1;
-        quantite.setText(String.valueOf(quantiteFuture));
+        if (boutonRelache) {
+            int quantiteActuelle = Integer.parseInt(quantite.getText().toString());
+            int quantiteFuture = quantiteActuelle + 1;
+            quantite.setText(String.valueOf(quantiteFuture));
+            boutonRelache = false;
+            return true;
+        }
+        else boutonRelache = true;
         return true;
     }
 
@@ -202,6 +218,11 @@ public class MenuActivity extends AppCompatActivity {
     //Méthode de rendu d'un matériel
     @OnClick(R.id.bt_rendu_materiel)
     public void rendreMateriel(){
+
+        Intent intent = new Intent(this,RenduActivity.class);
+        ReferenceEmprunt.setReference(Long.parseLong(reference.getText().toString()));
+        ReferenceEmprunt.setNom(nom.getText().toString());
+        startActivity(intent);
 
     }
 

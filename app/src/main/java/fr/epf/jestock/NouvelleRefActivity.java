@@ -56,6 +56,7 @@ public class NouvelleRefActivity extends AppCompatActivity {
     TextView quantiteAdd;
     @BindView(R.id.text_quantity_conseil)
     TextView quantiteConseil;
+    private boolean boutonRelache = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,38 +78,58 @@ public class NouvelleRefActivity extends AppCompatActivity {
     //Retirer 1 à la quantité de matériel ajoutée
     @OnTouch(R.id.retirer1Ajout)
     public boolean retirer1Ajout(){
-        int quantiteActuelle = Integer.parseInt(quantiteAdd.getText().toString());
-        int quantiteFuture = quantiteActuelle - 1;
-        if (quantiteFuture > 1) quantiteAdd.setText(String.valueOf(quantiteFuture));
-        else quantiteAdd.setText("1");
+        if (boutonRelache) {
+            int quantiteActuelle = Integer.parseInt(quantiteAdd.getText().toString());
+            int quantiteFuture = quantiteActuelle - 1;
+            if (quantiteFuture > 1) quantiteAdd.setText(String.valueOf(quantiteFuture));
+            else quantiteAdd.setText("1");
+            boutonRelache = false;
+            return true;
+        }
+        else boutonRelache = true;
         return true;
     }
 
     //Ajouter 1 à la quantité de matériel ajoutée
     @OnTouch(R.id.ajouter1Ajout)
     public boolean ajouter1Ajout(){
-        int quantiteActuelle = Integer.parseInt(quantiteAdd.getText().toString());
-        int quantiteFuture = quantiteActuelle +1;
-        quantiteAdd.setText(String.valueOf(quantiteFuture));
+        if (boutonRelache) {
+            int quantiteActuelle = Integer.parseInt(quantiteAdd.getText().toString());
+            int quantiteFuture = quantiteActuelle + 1;
+            quantiteAdd.setText(String.valueOf(quantiteFuture));
+            boutonRelache = false;
+            return true;
+        }
+        else boutonRelache = true;
         return true;
     }
 
     //Retirer 1 à la quantité de matériel conseillée
     @OnTouch(R.id.retirer1Conseil)
     public boolean retirer1Conseil(){
-        int quantiteActuelle = Integer.parseInt(quantiteConseil.getText().toString());
-        int quantiteFuture = quantiteActuelle - 1;
-        if (quantiteFuture > 1) quantiteConseil.setText(String.valueOf(quantiteFuture));
-        else quantiteConseil.setText("1");
+        if (boutonRelache) {
+            int quantiteActuelle = Integer.parseInt(quantiteConseil.getText().toString());
+            int quantiteFuture = quantiteActuelle - 1;
+            if (quantiteFuture > 1) quantiteConseil.setText(String.valueOf(quantiteFuture));
+            else quantiteConseil.setText("1");
+            boutonRelache = false;
+            return true;
+        }
+        else boutonRelache = true;
         return true;
     }
 
     //Ajouter à la quantité de matériel Conseillée
     @OnTouch(R.id.ajouter1Conseil)
     public boolean ajouter1Conseil(){
-        int quantiteActuelle = Integer.parseInt(quantiteConseil.getText().toString());
-        int quantiteFuture = quantiteActuelle +1;
-        quantiteConseil.setText(String.valueOf(quantiteFuture));
+        if (boutonRelache) {
+            int quantiteActuelle = Integer.parseInt(quantiteConseil.getText().toString());
+            int quantiteFuture = quantiteActuelle + 1;
+            quantiteConseil.setText(String.valueOf(quantiteFuture));
+            boutonRelache = false;
+            return true;
+        }
+        else boutonRelache = true;
         return true;
     }
 

@@ -44,7 +44,8 @@
                 android:resource="@xml/nfc_tech_filter" />
         </activity>
         <activity android:name=".AfficherInfoCarteEtuActivity" />
-        <activity android:name=".RenduActivity"></activity>
+        <activity android:name=".RenduActivity" />
+        <activity android:name=".ValidationRenduActivity"></activity>
     </application>
 
 </manifest>

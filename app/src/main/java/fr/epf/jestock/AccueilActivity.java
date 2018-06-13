@@ -73,6 +73,7 @@ public class AccueilActivity extends AppCompatActivity {
         cameraSource = new CameraSource
                 .Builder(this, detector)
                 .setRequestedPreviewSize(640, 1200)
+                .setAutoFocusEnabled(true)
                 .build();
 
         //Mise en place de la caméra
@@ -117,7 +118,33 @@ public class AccueilActivity extends AppCompatActivity {
 
                     //Méthode d'envoie du code détecté vers le serveur web pour vérification avec la base de données
                     rechercheRef(Long.parseLong(code.valueAt(0).displayValue));
+                    detector.release();
                 }
+
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        detector.setProcessor(new Detector.Processor<Barcode>() {
+            @Override
+            public void release() {            }
+
+            //Détection d'un code EAN 13
+            @Override
+            public void receiveDetections(Detector.Detections<Barcode> detections) {
+                final SparseArray<Barcode> code = detections.getDetectedItems();
+                if (code.size() != 0){
+                    Log.d("BARCODE", code.valueAt(0).displayValue);
+
+                    //Méthode d'envoie du code détecté vers le serveur web pour vérification avec la base de données
+                    rechercheRef(Long.parseLong(code.valueAt(0).displayValue));
+                    detector.release();
+                }
+
             }
         });
     }

@@ -154,6 +154,7 @@
         android:textColor="@android:color/white" />
 
     <Space
+        android:id="@+id/spaceAjout"
         android:layout_width="match_parent"
         android:layout_height="25dp" />
 
@@ -167,6 +168,7 @@
         android:textColor="@android:color/white" />
 
     <Space
+        android:id="@+id/spaceRetrait"
         android:layout_width="match_parent"
         android:layout_height="25dp" />
 

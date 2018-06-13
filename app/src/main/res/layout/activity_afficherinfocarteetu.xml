@@ -38,6 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Numéro étudiant"
+                    android:textSize="20dp"
                     android:textAlignment="center" />
             </TableRow>
 
@@ -51,6 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Nom et prénom"
+                    android:textSize="20dp"
                     android:textAlignment="center" />
             </TableRow>
 
@@ -71,6 +73,7 @@
                     android:id="@+id/numero_etudiant_textview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textSize="20dp"
                     android:textAlignment="center" />/>
             </TableRow>
 
@@ -84,6 +87,7 @@
                     android:id="@+id/nom_etudiant_textview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textSize="20dp"
                     android:textAlignment="center" />/>
 
             </TableRow>

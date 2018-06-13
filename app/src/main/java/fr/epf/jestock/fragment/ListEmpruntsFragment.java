@@ -17,6 +17,7 @@ import fr.epf.jestock.data.MaterielDAO;
 import fr.epf.jestock.model.Compte;
 import fr.epf.jestock.model.Emprunts;
 import fr.epf.jestock.model.MaterielEmpruntable;
+import fr.epf.jestock.model.ReferenceEmprunt;
 import fr.epf.jestock.service.IAppelBDD;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -83,9 +84,11 @@ public class ListEmpruntsFragment extends ListFragment {
             @Override
             public void onResponse(Call<List<Emprunts>> call, Response<List<Emprunts>> response) {
 
-                List<Emprunts> emprunt  = response.body();
-                ListAdapterEmprunts adapter = new ListAdapterEmprunts(getActivity(), emprunt);
+                List<Emprunts> empruntList  = response.body();
+                ListAdapterEmprunts adapter = new ListAdapterEmprunts(getActivity(), empruntList);
                 setListAdapter(adapter);
+
+
             }
 
             @Override

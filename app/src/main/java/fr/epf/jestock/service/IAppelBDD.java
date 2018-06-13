@@ -99,4 +99,12 @@ public interface IAppelBDD {
             @Field("quantiteAjoutee") int quantiteAjoutee,
             @Field("quantiteConseillee") int prenomEmprunteur,
             @Field("campus") String campus);
+
+    //Requete permettant de rendre un matériel
+    @FormUrlEncoded
+    @POST("/android/rendu.php")
+    Call<Void> rendre(
+            @Field("ref") long ref,
+            @Field("dateEmprunt") String dateEmprunt);
+
 }

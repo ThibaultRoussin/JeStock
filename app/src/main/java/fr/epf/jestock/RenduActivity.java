@@ -8,14 +8,16 @@ package fr.epf.jestock;
 
 */
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import butterknife.ButterKnife;
 import fr.epf.jestock.fragment.ListEmpruntsFragment;
+import fr.epf.jestock.fragment.ListRenduFragment;
 
-public class RenduActivity extends AppCompatActivity implements ListEmpruntsFragment.OnMaterielSelectedListener{
+public class RenduActivity extends AppCompatActivity implements ListRenduFragment.OnMaterielSelectedListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,8 @@ public class RenduActivity extends AppCompatActivity implements ListEmpruntsFrag
 
     @Override
     public void onMaterielSelected(int id) {
-
+        Intent intent = new Intent(this, ValidationRenduActivity.class);
+        intent.putExtra("Position", id);
+        startActivity(intent);
     }
 }
